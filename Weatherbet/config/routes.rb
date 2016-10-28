@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   #set the index page
   root 'pages#home' 
 
-  "http://pdc-amd01.poly.edu" => "http://pdc-amd01.poly.edu:3001"
+  match '/' => 'http://pdc-amd01.poly.edu:3001', :via => :get
 
   get 'pages/home'
 
