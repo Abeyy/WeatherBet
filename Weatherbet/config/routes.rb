@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   
   #set the index page
-  root 'pages#home' 
+  root 'pages#home'
 
-  get '/', to: redirect(port: 3001)
+  get 'assets/', to: redirect(port: 3001)
 
   get 'pages/home'
 
