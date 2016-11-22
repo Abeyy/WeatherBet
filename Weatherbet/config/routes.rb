@@ -3,8 +3,6 @@ Rails.application.routes.draw do
   #set the index page
   root 'pages#home'
 
-  get 'assets/', to: redirect(port: 3001)
-
   get 'pages/home'
 
   get 'pages/weather'
