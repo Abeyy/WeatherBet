@@ -33,6 +33,26 @@ Git Stratagy:
 		6.
 			git push
 
-		7.
-			go to github.com/Abeyy/WeatherBet-Rails-/tree/[BranchName]
-			ex. 
+		7. merge TO master
+			i. 
+				go to github.com/Abeyy/WeatherBet-Rails-/tree/[BranchName]
+				ex. 
+
+			ii. 
+				OBSERVE AND CHECK YOUR CHANGES!!!
+
+			iii. 
+				Click button to "Create New Pull Request"
+
+			iv.
+				Paste pull request link into Slack #PR
+					Group has 60 mins to respond + 3hr grace period (within reason)
+					After 60 person who innitiated PR should @everyone in Slack
+			v.
+				Once approval is recieved via Slack, click "Merge Pull Request" and delete branch if prudent. (don't forget to delete locally)
+
+
+
+
+
+			
