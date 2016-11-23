@@ -1,2 +1,14 @@
 <h1>Pages#weather</h1>
 <p>Find me in app/views/pages/weather.html.erb</p>
+
+
+<p>The following is generated using ruby wrapped C/C++ :<br />
+
+	<%= "Calling the c++ function RiceTest.new.fibonacci(n) from erb:" %>
+	<p>
+		<%= (1...6).each do |n|  %>
+			<%= "fib(#{n}): #{RiceTest.new.fibonacci(n)}" %> <br />
+		<% end %>
+	</p>
+	Yay! It works...
+</p>

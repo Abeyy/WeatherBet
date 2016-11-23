@@ -3,6 +3,7 @@ class PagesController < ApplicationController
   end
 
   def weather
+  	require "#{Rails.root}/Cstuff/rice_test"
   end
 
   def locations
