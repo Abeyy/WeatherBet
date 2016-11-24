@@ -25,7 +25,7 @@
 		using namespace Rice;
 
 	iii.write some clever stuff (in [CLASSNAME].cpp)
-		//your clever code goes here 
+		
 		[returnType] [methodName_1]([arguments...]) {
 			[implementation]
 		}
