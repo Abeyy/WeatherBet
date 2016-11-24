@@ -58,4 +58,4 @@
 
 5.	call your methods
 	
-	[CLASSNAME].new.[methodName]([arguments...])
+	[CLASSNAME].new.[methodName] ([arguments...])
