@@ -40,7 +40,7 @@
 
 		extern "C"
 
-		void Init_rice_test()
+		void Init_[CLASSNAME]()
 		{
 		  Class rb_c = define_class("[CLASSNAME]")
 		    .define_method("methodName_1", &methodName_1)
