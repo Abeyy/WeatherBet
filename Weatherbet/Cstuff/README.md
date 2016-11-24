@@ -58,6 +58,6 @@
 
 5.	call your methods
 	
-	[CLASSNAME].new.[methodName]([arguments...])
+	[CLASSNAME].new.[methodName_n]([arguments...])
 
 6. rejoice 
