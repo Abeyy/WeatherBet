@@ -61,3 +61,9 @@
 	[CLASSNAME].new.\[methodName]([arguments...])
 
 6. rejoice 
+
+
+more info at 
+http://rice.rubyforge.org/
+https://www.amberbit.com/blog/2014/6/12/calling-c-cpp-from-ruby/
+https://www.ibm.com/developerworks/library/os-extendruby/
