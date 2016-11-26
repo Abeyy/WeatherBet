@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161125235728) do
+ActiveRecord::Schema.define(version: 20161126012144) do
 
   create_table "locations", force: :cascade do |t|
     t.string   "name"
@@ -21,15 +21,19 @@ ActiveRecord::Schema.define(version: 20161125235728) do
   create_table "predictions", force: :cascade do |t|
     t.datetime "start"
     t.datetime "end"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "location_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["location_id"], name: "index_predictions_on_location_id"
   end
 
   create_table "reports", force: :cascade do |t|
     t.datetime "start"
     t.datetime "end"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "location_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["location_id"], name: "index_reports_on_location_id"
   end
 
 end

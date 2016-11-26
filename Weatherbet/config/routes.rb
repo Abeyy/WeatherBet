@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   
   resources :locations
+  resources :reports
+  resources :predictions
   #set the index page
   root 'pages#home'
 

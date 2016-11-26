@@ -1,9 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  start: 2016-11-23 19:30:18
-  end: 2016-11-23 19:30:18
+  start: 2016-11-25 20:21:20
+  end: 2016-11-25 20:21:20
+  location: one
 
 two:
-  start: 2016-11-23 19:30:18
-  end: 2016-11-23 19:30:18
+  start: 2016-11-25 20:21:20
+  end: 2016-11-25 20:21:20
+  location: two

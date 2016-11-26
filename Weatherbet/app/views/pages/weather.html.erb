@@ -66,3 +66,70 @@
 	</p>
 
 </p>
+
+
+<p>
+Predictions: <br />
+<% Prediction.all.each do |p| %>
+	<%= "It will be flyable at #{p.location.name} from #{p.start} to #{p.end}." %> <br />
+<% end %>
+</p>
+<p>
+Reports: <br />
+<% Report.all.each do |p| %>
+	<%= "It was flyable at #{p.location.name} from #{p.start} to #{p.end}." %> <br />
+<% end %>
+</p>
+
+<p>
+Reports(Brace): <br />
+<% Report.where(location: 2).each do |p| %>
+	<%= "It was flyable at #{p.location.name} from #{p.start} to #{p.end}." %> <br />
+<% end %>
+</p>
+
+<p>
+Reports(Ellenville): <br />
+<% Report.where(location: 1).each do |p| %>
+	<%= "It was flyable at #{p.location.name} from #{p.start} to #{p.end}." %> <br />
+<% end %>
+</p>
+
+
+
+
+
+<p>
+<% user = WbStat.new %>
+<% user.correct=0 %>
+
+Given a user with the <%= user.total = Prediction.count %> following
+Predictions(checked): <br />
+
+<% Prediction.all.each do |p| %>
+	set-><%= isTrue = false %>
+	<%= "Prediction: \"It will be flyable at #{p.location.name} from #{p.start} to #{p.end}.\"" %> 
+	<% Report.where(location: p.location).each do |r| %>
+		<% sINr =(r.start < p.start and p.start < r.end) %>
+		<% eINr =(r.start < p.end and p.start < r.end) %>
+		compute-><%= isTrue = (isTrue or sINr or eINr) %>
+		<br /><%= "#{r.start} < #{p.start} < #{r.end} (#{sINr}) OR #{r.start} < #{p.end} < #{r.end} (#{eINr}) = #{sINr or eINr}" %>
+	<% end %> <br />
+	Hence, given the above reports, the prediction, <%= "\"It will be flyable at #{p.location.name} from #{p.start} to #{p.end}.\" is" %> <strong><%= isTrue %></strong>. 
+
+	<% if isTrue %>
+		<% user.correct+=1 %>
+	<% end %>
+
+	<br/><br />
+<% end %>
+
+<br /><br /> 
+Given a user with <%= user.correct %> predictions out of <%= user.total %> total predictions that user would have the following probabilities of make a correct prediction on the next attempt <br />
+<%= user.mle %> using the mle method <br />
+<%= user.jeffreys %> using the Jeffreys method <br />
+<%= user.laplace %> using the LaPlace method <br />
+
+</p>
+
+
