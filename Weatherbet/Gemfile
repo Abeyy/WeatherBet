@@ -35,7 +35,7 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Rice for callling  C / C++ 
 gem 'rice', '~> 2.1'
-
+gem 'devise'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
