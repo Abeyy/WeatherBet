@@ -1,4 +1,5 @@
 class LocationsController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :edit, :update, :destroy] #devise authorization
   before_action :set_location, only: [:show, :edit, :update, :destroy]
 
   # GET /locations
