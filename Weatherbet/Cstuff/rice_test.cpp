@@ -19,10 +19,10 @@ int rice_fibonacci(int n) {
   }
   return b;
 }
-String rice_factorial(int max) {
+int rice_factorial(int max) {
   int i=max, result=1;
   while (i >= 2) { result *= i--; }
-  return "q "+std::to_string(result)+" p";
+  return result;
 }
 int rice_pow(int a, int n) {
   return pow(a, n);
