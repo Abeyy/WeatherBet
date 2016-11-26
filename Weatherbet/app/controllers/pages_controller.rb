@@ -7,4 +7,10 @@ class PagesController < ApplicationController
 
   def locations
   end
+
+  def forums
+  end
+
+  def login
+  end
 end

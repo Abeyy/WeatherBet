@@ -1,0 +1,58 @@
+
+.strong{
+	font-weight: bold;
+}
+
+.blackground{
+	background-color: black;
+}
+.jumbotron {
+	background-image: url("jumbo1.jpg");
+	min-height: 60vh;
+	background-size: cover;
+	background-position: center center;
+}
+
+.jumbo-text{
+	color:white;
+	text-align: center;
+	margin-bottom: none;
+}
+
+.btn-message{
+	margin-top: 10px;
+	color: black;
+	background-color:white;
+	font-size: 15px
+}
+
+.btn-message:hover{
+	font-weight:bold;
+}
+
+.panel-body{
+	text-align:center;
+	padding-top: 0;
+
+}
+
+.skill-img-resizer{
+    height:128px;
+    width:128px;
+}
+
+
+
+.panel-all{
+	text-align: center;
+	height: 250px;
+	
+}
+
+.panel-all:hover {
+ -webkit-transform: scale(1.1);
+ -moz-transform:    scale(1.1);
+ -o-transform:      scale(1.1);
+ -ms-transform:     scale(1.1);
+}
+
