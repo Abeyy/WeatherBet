@@ -137,7 +137,7 @@ Given a user with <%= user.correct %> predictions out of <%= user.total %> total
 <% if user_signed_in? %>
 	<p>
 
-	The current user: <%= @user.email %> has made <%= @predictions.count %> predictions of which <%= @usrStats.total %> where correct. This implies that the probability of <%= @user.email %> making a correct prediction on the next attempt is: <br />
+	The current user: <%= @user.email %> has made <%= @predictions.count %> predictions of which <%= @usrStats.correct %> where correct. This implies that the probability of <%= @user.email %> making a correct prediction on the next attempt is: <br />
 	<%= @usrStats.mle %> using the mle method <br />
 	<%= @usrStats.jeffreys %> using the Jeffreys method <br />
 	<%= @usrStats.laplace %> using the LaPlace method <br />
