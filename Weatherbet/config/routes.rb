@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  
+
+  get 'users/show'
+
   devise_for :users
   
   resources :locations
@@ -17,6 +19,10 @@ Rails.application.routes.draw do
 
   get 'pages/forums'
 
+  get 'pages/reports'
+  get 'pages/predictions'
+
+  # get 'profile' => 'users#show'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

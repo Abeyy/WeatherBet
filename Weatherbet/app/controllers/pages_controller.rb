@@ -3,31 +3,31 @@ class PagesController < ApplicationController
   end
 
   def weather
-  	require "#{Rails.root}/Cstuff/rice_test"
+  	# require "#{Rails.root}/Cstuff/rice_test"
 
-    @user = current_user
-    if user_signed_in?    
-      @usrStats = WbStat.new 
-      @usrStats.correct=0
+   #  @user = current_user
+   #  if user_signed_in?    
+   #    @usrStats = WbStat.new 
+   #    @usrStats.correct=0
 
-      @predictions = @user.predictions
-      @usrStats.total = @predictions.count
+   #    @predictions = @user.predictions
+   #    @usrStats.total = @predictions.count
 
-      @predictions.each do |p|
-        isTrue = false
-        Report.where(location: p.location).each do |r|
-          sINr =(r.start < p.start and p.start < r.end)
-          eINr =(r.start < p.end and p.start < r.end)
-          isTrue = (isTrue or sINr or eINr)
-        end #end Report.wher... do |r|
+   #    @predictions.each do |p|
+   #      isTrue = false
+   #      Report.where(location: p.location).each do |r|
+   #        sINr =(r.start < p.start and p.start < r.end)
+   #        eINr =(r.start < p.end and p.start < r.end)
+   #        isTrue = (isTrue or sINr or eINr)
+   #      end #end Report.wher... do |r|
 
-        if isTrue 
-          @usrStats.correct += 1
-        end #end isTrue
+   #      if isTrue 
+   #        @usrStats.correct += 1
+   #      end #end isTrue
 
-      end #end predictions.each do |p|
+   #    end #end predictions.each do |p|
 
-    end #end if user_signed_in
+   #  end #end if user_signed_in
 
   	# @usrStats = RiceTest.new
   	# @usrStats = WbStat.new
