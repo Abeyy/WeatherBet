@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   
+  get 'pages/forums'
+
+  get 'pages/login'
+
   #set the index page
   root 'pages#home'
 

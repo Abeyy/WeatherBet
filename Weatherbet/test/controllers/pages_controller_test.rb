@@ -16,4 +16,14 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should get forums" do
+    get pages_forums_url
+    assert_response :success
+  end
+
+  test "should get login" do
+    get pages_login_url
+    assert_response :success
+  end
+
 end
