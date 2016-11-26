@@ -1,5 +1,5 @@
 class ReportsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :edit, :update, :destroy] #devise authorization
+  # before_action :authenticate_user!, only: [:new, :edit, :update, :destroy] #devise authorization
   before_action :set_report, only: [:show, :edit, :update, :destroy]
 
   # GET /reports

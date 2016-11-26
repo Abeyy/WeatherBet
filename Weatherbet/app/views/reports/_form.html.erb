@@ -24,6 +24,7 @@
   <div class="field">
     <%= f.label :location_id %>
     <%= f.collection_select(:location_id, Location.all, :id, :name) %>
+    <%= link_to 'New Location', new_location_path %>
   </div>
 
   <div class="actions">
