@@ -132,6 +132,13 @@ Given a user with <%= user.correct %> correct predictions out of <%= user.total 
 
 </p>
 
+<% (1...4).each do |i| %>
+	<p>
+	Name: <%= Faker::Name.last_name %>, <%= Faker::Name.first_name %> <br /> Phone: <%= Faker::PhoneNumber.cell_phone %><br />
+	Statement: I am a cool hacker guy which means I say stuff like, "<%= Faker::Hacker.say_something_smart %>" and, "<%= "I'm going to need to #{Faker::Hacker.verb} the #{Faker::Hacker.noun} so we can get some #{Faker::Hacker.adjective} #{Faker::Hacker.abbreviation} up in this #{Faker::Hacker.ingverb} #{Faker::Hacker.noun}" %>."
+	</p>
+<% end %>
+
 
 
 <% if user_signed_in? %>
