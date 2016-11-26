@@ -26,7 +26,8 @@ class PredictionsController < ApplicationController
   # POST /predictions.json
   def create
     @prediction = Prediction.new(prediction_params)
-
+    @prediction.user = current_user
+    
     respond_to do |format|
       if @prediction.save
         format.html { redirect_to @prediction, notice: 'Prediction was successfully created.' }
@@ -36,6 +37,7 @@ class PredictionsController < ApplicationController
         format.json { render json: @prediction.errors, status: :unprocessable_entity }
       end
     end
+
   end
 
   # PATCH/PUT /predictions/1
