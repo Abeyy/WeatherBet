@@ -1,0 +1,42 @@
+<h1><%= current_user.email %></h1>
+
+<br />
+<p>
+<h4>
+You have made <strong><%= @predictions.count %></strong> predictions, of which <strong><%= @usrStats.correct %></strong> where correct. </h4> This implies that the probability of your next prediction being correct is: <br />
+<p>
+<strong><%= @usrStats.mle.round(3) %></strong> using the mle method <br />
+<strong><%= @usrStats.jeffreys.round(3) %></strong> using the Jeffreys method <br />
+<strong><%= @usrStats.laplace.round(3) %></strong> using the LaPlace method <br />
+</p>
+
+</p>
+
+
+<h2>predictions</h2>
+
+<p>
+<ul>
+<% current_user.predictions.each do |prediction| %>
+  <li>
+  	<%= prediction.location.name %> 
+  	<%= prediction.start %> 
+  	<%= prediction.end %> 
+  	<% if prediction.isTrue %>
+  		√
+  	<% end %>
+  </li>
+<% end %>
+</ul>
+</p>
+
+<p>
+<h2>reports</h2>
+<ul>
+<% current_user.reports.each do |report| %>
+  <li><%= report.location.name %> <%= report.start %> <%= report.end %></li>
+<% end %>
+</ul>
+</p>
+
+
