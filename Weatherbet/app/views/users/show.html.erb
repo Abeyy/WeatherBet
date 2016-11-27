@@ -19,11 +19,11 @@ You have made <strong><%= @predictions.count %></strong> predictions, of which <
 <ul>
 <% current_user.predictions.each do |prediction| %>
   <li>
-  	<%= prediction.location.name %> 
-  	<%= prediction.start %> 
-  	<%= prediction.end %> 
+  	It will be good at <strong><%= prediction.location.name %></strong> from
+  	<strong><%= prediction.start %> </strong>to
+  	<strong><%= prediction.end %> </strong>
   	<% if prediction.isTrue %>
-  		√
+  		 - - - - - - - - <strong>√</strong>
   	<% end %>
   </li>
 <% end %>
@@ -34,7 +34,7 @@ You have made <strong><%= @predictions.count %></strong> predictions, of which <
 <h2>reports</h2>
 <ul>
 <% current_user.reports.each do |report| %>
-  <li><%= report.location.name %> <%= report.start %> <%= report.end %></li>
+  <li>It was good at <strong><%= report.location.name %></strong> from <strong><%= report.start %></strong> to <strong><%= report.end %></strong></li>
 <% end %>
 </ul>
 </p>
