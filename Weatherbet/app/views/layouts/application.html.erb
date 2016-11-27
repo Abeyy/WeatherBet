@@ -42,7 +42,8 @@
 		      <ul class="nav navbar-nav navbar-right">
 		      	
 		      	<li>
-		      		<a href='#forums'>forums</a>
+		      		<!-- <a href='#forums'>forums</a> -->
+		      		<%= link_to "forums", pages_forums_path %>
 		      	</li>
 
 		        <% if user_signed_in? %>
