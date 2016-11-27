@@ -12,7 +12,12 @@
 
 <p>
   <strong>Location:</strong>
-  <%= @report.location %>
+  <%= @report.location.name %>
+</p>
+
+<p>
+  <strong>Issuing User:</strong>
+  <%= @report.user.email %>
 </p>
 
 <%= link_to 'Edit', edit_report_path(@report) %> |
