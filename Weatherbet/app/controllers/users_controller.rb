@@ -20,7 +20,17 @@ class UsersController < ApplicationController
         Report.where(location: p.location).each do |r|
           sINr =(r.start < p.start and p.start < r.end)
           eINr =(r.start < p.end and p.start < r.end)
-          p.isTrue = (p.isTrue or sINr or eINr)
+
+          thisReportConfirmsPrediction = sINr or eINr
+          p.isTrue = (p.isTrue or thisReportConfirmsPrediction)
+
+          if thisReportConfirmsPrediction
+            class << p
+              attr_accessor :confirmingReport
+            end
+            p.confirmingReport = r
+          end #end if thisReportConfirmsPrediction
+
         end #end Report.wher... do |r|
 
         if p.isTrue 
