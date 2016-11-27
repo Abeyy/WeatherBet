@@ -11,7 +11,7 @@ class UsersController < ApplicationController
       @usrStats.total = @predictions.count
 
       @predictions.each do |p|
-      	
+        #should really not have to check every prediction every time. Once it is checked once, just save the value for later.       	
       	class << p
       		attr_accessor :isTrue
       	end
@@ -29,6 +29,8 @@ class UsersController < ApplicationController
               attr_accessor :confirmingReport
             end
             p.confirmingReport = r
+            #once p is verified, why keep looping?
+
           end #end if thisReportConfirmsPrediction
 
         end #end Report.wher... do |r|
