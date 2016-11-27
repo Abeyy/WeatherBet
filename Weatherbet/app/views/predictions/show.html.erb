@@ -12,8 +12,12 @@
 
 <p>
   <strong>Location:</strong>
-  <%= @prediction.location %>
+  <%= @prediction.location.name %>
 </p>
 
+<p>
+  <strong>Issuing User:</strong>
+  <%= @prediction.user.email %>
+</p>
 <%= link_to 'Edit', edit_prediction_path(@prediction) %> |
 <%= link_to 'Back', predictions_path %>

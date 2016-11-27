@@ -13,7 +13,7 @@ You have made <strong><%= @predictions.count %></strong> predictions, of which <
 </p>
 
 
-<h2>my predictions</h2>
+<h2>predictions</h2>
 
 <p>
 <ul>
@@ -23,12 +23,7 @@ You have made <strong><%= @predictions.count %></strong> predictions, of which <
   	<%= prediction.start %> 
   	<%= prediction.end %> 
   	<% if prediction.isTrue %>
-  		√<ul>
-  			<li><%= prediction.confirmingReport.location.name %>
-  			<%= prediction.confirmingReport.start %>
-  			<%= prediction.confirmingReport.end %>
-  			<%= (prediction.confirmingReport.user).email %></li>
-  		</ul>
+  		√
   	<% end %>
   </li>
 <% end %>
@@ -36,7 +31,7 @@ You have made <strong><%= @predictions.count %></strong> predictions, of which <
 </p>
 
 <p>
-<h2>my reports</h2>
+<h2>reports</h2>
 <ul>
 <% current_user.reports.each do |report| %>
   <li><%= report.location.name %> <%= report.start %> <%= report.end %></li>
