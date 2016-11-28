@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
   def show
-  	require "#{Rails.root}/Cstuff/rice_test"
+  	createUsrStats
+  end
+
+  def createUsrStats 
+    require "#{Rails.root}/Cstuff/rice_test"
     @user = current_user
     if user_signed_in?    
 
@@ -11,10 +15,10 @@ class UsersController < ApplicationController
       @usrStats.total = @predictions.count
 
       @predictions.each do |p|
-        #should really not have to check every prediction every time. Once it is checked once, just save the value for later.       	
-      	class << p
-      		attr_accessor :isTrue
-      	end
+        #should really not have to check every prediction every time. Once it is checked once, just save the value for later.         
+        class << p
+          attr_accessor :isTrue
+        end
         # isTrue = false
 
         Report.where(location: p.location).each do |r|
@@ -43,4 +47,5 @@ class UsersController < ApplicationController
 
     end #end if user_signed_in
   end
+
 end
