@@ -12,13 +12,13 @@ NULLCMD = :
 #### Start of system configuration section. ####
 
 srcdir = .
-topdir = /Users/_-_/.rvm/rubies/ruby-2.3.0/include/ruby-2.3.0
+topdir = /Users/Abey_Joy/.rvm/rubies/ruby-2.3.0/include/ruby-2.3.0
 hdrdir = $(topdir)
-arch_hdrdir = /Users/_-_/.rvm/rubies/ruby-2.3.0/include/ruby-2.3.0/x86_64-darwin13
+arch_hdrdir = /Users/Abey_Joy/.rvm/rubies/ruby-2.3.0/include/ruby-2.3.0/x86_64-darwin16
 PATH_SEPARATOR = :
 VPATH = $(srcdir):$(arch_hdrdir)/ruby:$(hdrdir)/ruby
 
-prefix = $(DESTDIR)/Users/_-_/.rvm/rubies/ruby-2.3.0
+prefix = $(DESTDIR)/Users/Abey_Joy/.rvm/rubies/ruby-2.3.0
 
 rubysitearchprefix = $(rubylibprefix)/$(sitearch)
 
@@ -128,9 +128,9 @@ CCDLFLAGS = -fno-common
 CFLAGS   = $(CCDLFLAGS) $(cflags)  -fno-common -pipe $(ARCH_FLAG)
 INCFLAGS = -I. -I$(arch_hdrdir) -I$(hdrdir)/ruby/backward -I$(hdrdir) -I$(srcdir)
 DEFS     = 
-CPPFLAGS =   -I/usr/local/opt/libyaml/include -I/usr/local/opt/readline/include -I/usr/local/opt/libksba/include -I/usr/local/opt/openssl/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT $(DEFS) $(cppflags) -arch x86_64 -I/Users/_-_/.rvm/gems/ruby-2.3.0/gems/rice-2.1.0/ruby/lib/include
+CPPFLAGS =   -I/usr/local/opt/libyaml/include -I/usr/local/opt/readline/include -I/usr/local/opt/libksba/include -I/usr/local/opt/openssl/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT $(DEFS) $(cppflags) -arch x86_64 -I/Users/Abey_Joy/.rvm/gems/ruby-2.3.0/gems/rice-2.1.0/ruby/lib/include
 CXXFLAGS = $(CFLAGS)  -Wall -g
-ldflags  = -L. -fstack-protector -L/usr/local/lib -L/usr/local/opt/libyaml/lib -L/usr/local/opt/readline/lib -L/usr/local/opt/libksba/lib -L/usr/local/opt/openssl/lib  -L/Users/_-_/.rvm/gems/ruby-2.3.0/gems/rice-2.1.0/ruby/lib/lib -lrice
+ldflags  = -L. -fstack-protector -L/usr/local/opt/libyaml/lib -L/usr/local/opt/readline/lib -L/usr/local/opt/libksba/lib -L/usr/local/opt/openssl/lib  -L/Users/Abey_Joy/.rvm/gems/ruby-2.3.0/gems/rice-2.1.0/ruby/lib/lib -lrice
 dldflags = -Wl,-undefined,dynamic_lookup -Wl,-multiply_defined,suppress -L/usr/local/opt/libyaml/lib -L/usr/local/opt/readline/lib -L/usr/local/opt/libksba/lib -L/usr/local/opt/openssl/lib 
 ARCH_FLAG = 
 DLDFLAGS = $(ldflags) $(dldflags) $(ARCH_FLAG)
@@ -153,7 +153,7 @@ RUBYW_BASE_NAME = rubyw
 RUBY_BASE_NAME = ruby
 
 
-arch = x86_64-darwin13
+arch = x86_64-darwin16
 sitearch = $(arch)
 ruby_version = 2.3.0
 ruby = $(bindir)/$(RUBY_BASE_NAME)
