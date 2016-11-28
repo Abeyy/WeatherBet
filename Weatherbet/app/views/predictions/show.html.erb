@@ -19,5 +19,14 @@
   <strong>Issuing User:</strong>
   <%= @prediction.user.email %>
 </p>
+
+<p>
+  <% if @prediction.report %>
+  	  <strong>Confirming Report: </strong>
+	  <%= @prediction.report.start%>
+	  <%= @prediction.report.end %>
+	  <%= @prediction.report.user.email %>
+  <% end %>
+</p>
 <%= link_to 'Edit', edit_prediction_path(@prediction) %> |
 <%= link_to 'Back', predictions_path %>

@@ -3,7 +3,7 @@
 <br />
 <p>
 <h4>
-You have made <strong><%= @predictions.count %></strong> predictions, of which <strong><%= @usrStats.correct %></strong> where correct. </h4> This implies that the probability of your next prediction being correct is: <br />
+You have made <strong><%= @usrStats.total %></strong> predictions, of which <strong><%= @usrStats.correct %></strong> where correct. </h4> This implies that the probability of your next prediction being correct is: <br />
 <p>
 <strong><%= @usrStats.mle.round(3) %></strong> using the mle method <br />
 <strong><%= @usrStats.jeffreys.round(3) %></strong> using the Jeffreys method <br />
@@ -22,12 +22,12 @@ You have made <strong><%= @predictions.count %></strong> predictions, of which <
   	<%= prediction.location.name %> 
   	<%= prediction.start %> 
   	<%= prediction.end %> 
-  	<% if prediction.isTrue %>
+  	<% if prediction.report_id %>
   		√<ul>
-  			<li><%= prediction.confirmingReport.location.name %>
-  			<%= prediction.confirmingReport.start %>
-  			<%= prediction.confirmingReport.end %>
-  			<%= (prediction.confirmingReport.user).email %></li>
+  			<li><%= prediction.report.location.name %>
+  			<%= prediction.report.start %>
+  			<%= prediction.report.end %>
+  			<%= prediction.report.user.email %></li>
   		</ul>
   	<% end %>
   </li>
@@ -43,5 +43,4 @@ You have made <strong><%= @predictions.count %></strong> predictions, of which <
 <% end %>
 </ul>
 </p>
-
 

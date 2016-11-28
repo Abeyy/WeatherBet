@@ -2,7 +2,11 @@ class PagesController < ApplicationController
   def home
   end
 
-  def weather
+  def weather 
+    
+  end
+
+  def oldweather
     @hours = Array.new(1440)
     hoursFromNow = 0.0
 

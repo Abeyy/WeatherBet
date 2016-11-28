@@ -1,15 +1,3 @@
 <h1>Pages#weather</h1>
 <p>Find me in app/views/pages/weather.html.erb</p>
 
-<table>
-<% @hours.each do |h| %>
-<tr>
-	<td><%= h.instance_variable_get(:@fin) %></td>
-	<% h.each do |loc| %> 
-		<!-- <td><%= loc.name %> </td> -->
-		<td><%= loc.score %> </td>
-
-	<% end %>
-</tr>
-<% end %>
-</table>
