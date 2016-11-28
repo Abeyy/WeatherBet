@@ -19,5 +19,16 @@
   <strong>Issuing User:</strong>
   <%= @prediction.user.email %>
 </p>
+
+<% @reports.order(:start).find_each do |s| %>
+	<%= s.start %> 
+	<%= s.end %> 
+	<%= s.user.email %> 
+	<br />
+<%end %>
+<%= @reports.any? %>
+<%= @prediction.check %>
+<br />
+
 <%= link_to 'Edit', edit_prediction_path(@prediction) %> |
 <%= link_to 'Back', predictions_path %>
