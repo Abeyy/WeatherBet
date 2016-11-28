@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161126055635) do
+ActiveRecord::Schema.define(version: 20161128022828) do
 
   create_table "locations", force: :cascade do |t|
     t.string   "name"
@@ -25,7 +25,9 @@ ActiveRecord::Schema.define(version: 20161126055635) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "user_id"
+    t.integer  "report_id"
     t.index ["location_id"], name: "index_predictions_on_location_id"
+    t.index ["report_id"], name: "index_predictions_on_report_id"
     t.index ["user_id"], name: "index_predictions_on_user_id"
   end
 
@@ -53,6 +55,7 @@ ActiveRecord::Schema.define(version: 20161126055635) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.float    "weight"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
