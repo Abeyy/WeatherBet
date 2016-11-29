@@ -23,7 +23,7 @@
           <% if prediction.check %>
             √ <%= i+=1 %>
             <ul>
-                <% @prediction.getConfirmingReports.order(:start).find_each do |s| %>
+                <% prediction.getConfirmingReports.order(:start).find_each do |s| %>
                   <li>
                 <%= s.start %> 
                 <%= s.end %> 
