@@ -1,11 +1,12 @@
 <h1><%= current_user.email %></h1>
 
-<% @usrStats.correct = current_user.correctPredictions %>
+
+<% #@usrStats.correct = current_user.correctPredictions %>
 
 <br />
 <p>
 <h4>
-You have made <strong><%= @predictions.count %></strong> predictions, of which <strong><%= @usrStats.correct %></strong> where correct. </h4> This implies that the probability of your next prediction being correct is: <br />
+You have made <strong><%= @usrStats.total %></strong> predictions, of which <strong><%= @usrStats.correct %></strong> where correct. </h4> This implies that the probability of your next prediction being correct is: <br />
 <p>
 <strong><%= @usrStats.mle.round(3) %></strong> using the mle method <br />
 <strong><%= @usrStats.jeffreys.round(3) %></strong> using the Jeffreys method <br />
@@ -16,7 +17,7 @@ You have made <strong><%= @predictions.count %></strong> predictions, of which <
 
 
 <h2>my predictions</h2>
-
+<%= current_user.predictions.any? %>
 <p>
 <ul>
 <% i=0 %>

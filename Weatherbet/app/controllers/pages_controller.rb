@@ -3,7 +3,6 @@ class PagesController < ApplicationController
   end
 
   def weather
-    	
   end
 
   def locations
