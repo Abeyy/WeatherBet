@@ -8,7 +8,7 @@ class User < ApplicationRecord
   has_many :predictions, dependent: :destroy
 
   def predictionsToConsider
-	return predictions.where(start: DateTime.new(1971)..DateTime.now.days_ago(1))
+	  return predictions.where(start: DateTime.new(1971)..DateTime.now.days_ago(1))
   end #predictionsToConsider
 
   def totalPredictions
@@ -23,7 +23,14 @@ class User < ApplicationRecord
   	return correct
   end
 
-  def weight
-  	return (correctPredictions+1.0)/(totalPredictions+2.0)
+  def getWeight
+    if self.weight
+      return self.weight
+    else
+      w = (correctPredictions+1.0)/(totalPredictions+2.0)
+      self.weight = w
+      self.save!
+  	  return -w
+    end
   end #weight 
 end

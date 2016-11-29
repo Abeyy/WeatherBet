@@ -8,17 +8,22 @@
 
 <% min = @location.predictions.order(:start).first %>
 <% max = @location.predictions.order(:start).last %>
-<% scaleFactor = 90.0/((max.start.month-min.start.month-1)*33.33+max.start.day+max.start.hour/24.0) %>
+<% scaleFactor = 60.0/((max.start.month-min.start.month-1)*33.33+max.start.day+max.start.hour/24.0) %>
 <% @location.predictions.order(:start).each do |p| %>
-<span style="
+ <span style="
 	position: absolute; 
 	display:inline-block; 
 	left: <%= scaleFactor*((p.start.month-min.start.month-1)*30.333+p.start.day+p.start.hour/24.0) %>%;
-	">
+	" > 
 
-<%= ((@location.getProbability(p.start))/20.0).round(2) %>% 
+pnts: <%= @location.getScore(p.start).round(2) %> 
+cp: <%= @location.getCondProb(p.start).round(2) %> 
+cpn: <%= @location.getCondProbN(p.start).round(2) %> 
+cpn2: <%= @location.getCondProbN2(p.start).round(2) %> 
+apw: <%= @location.getAvgPredictingWeight(p.start).round(2) %> 
+apwn: <%= @location.getAPWn(p.start).round(2) %> 
 
-<%= link_to "#{p.start.hour}:00 to #{p.end.hour}:00 on #{p.start.month} / #{p.start.day} / #{p.start.year}", prediction_path(p) %>
+<%= link_to "#{p.start.hour}:00 to #{p.end.hour}:00 on #{p.start.month} / #{p.start.day} / #{p.start.year} (#{p.user.getWeight.round(2)})", prediction_path(p) %>
 
 </span>
 <br />

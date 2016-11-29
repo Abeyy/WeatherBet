@@ -11,17 +11,17 @@ class LocationsController < ApplicationController
   # GET /locations/1
   # GET /locations/1.json
   def show
-    forcastStart = DateTime.now.days_ago(120)
-    forcastEnd = DateTime.now.days_ago(99)
+    # forcastStart = DateTime.now.days_ago(120)
+    # forcastEnd = DateTime.now.days_ago(99)
     
-    #from start to end
-    @forcast = Array.new(24, Prediction.new)
+    # #from start to end
+    # @forcast = Array.new(24, Prediction.new)
 
-    hourStart = forcastStart
-    hourEnd = hourStart + 2000.hours
+    # hourStart = forcastStart
+    # hourEnd = hourStart + 2000.hours
 
 
-    @hourPredictions = Prediction.all
+    # @hourPredictions = Prediction.all
 
   end#show
 
