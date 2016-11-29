@@ -1,5 +1,7 @@
 <h1><%= current_user.email %></h1>
 
+<% @usrStats.correct = current_user.correctPredictions %>
+
 <br />
 <p>
 <h4>
@@ -17,19 +19,27 @@ You have made <strong><%= @predictions.count %></strong> predictions, of which <
 
 <p>
 <ul>
+<% i=0 %>
+<% j=0 %>
 <% current_user.predictions.each do |prediction| %>
   <li>
   	<%= prediction.location.name %> 
   	<%= prediction.start %> 
   	<%= prediction.end %> 
-  	<% if prediction.isTrue %>
-  		√<ul>
-  			<li><%= prediction.confirmingReport.location.name %>
-  			<%= prediction.confirmingReport.start %>
-  			<%= prediction.confirmingReport.end %>
-  			<%= (prediction.confirmingReport.user).email %></li>
-  		</ul>
-  	<% end %>
+
+    <% if prediction.check %>
+      <strong>√<%= j+=1 %></strong>
+      <ul>
+          <% prediction.getReleventReports.order(:start).find_each do |s| %>
+          <li>
+          <%= s.start %> 
+          <%= s.end %> 
+          <%= s.user.email %> 
+         </li>
+          <% end %>
+      </ul>
+    <% end %>
+
   </li>
 <% end %>
 </ul>

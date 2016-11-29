@@ -1,7 +1,7 @@
 class Prediction < ApplicationRecord
   belongs_to :location
   belongs_to :user
-
+  attr_accessor
 
   def getReleventReports
   	# @relevent = Report.where(location: p.location, start: (p.start-1)..(p.end+1))
