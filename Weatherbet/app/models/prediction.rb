@@ -3,15 +3,11 @@ class Prediction < ApplicationRecord
   belongs_to :user
   attr_accessor
 
-  def getReleventReports
-  	# @relevent = Report.where(location: p.location, start: (p.start-1)..(p.end+1))
-  	# @relevent = Report.where(location: location, start: (start.days_ago(2))..start.days_ago(-2))
+  def getConfirmingReports
   	return Report.where(location: location, start: DateTime.new(1971)..self.end, end: start..DateTime.now)
-
-  	# return @relevent
-  end #end check
+  end #end getConfirmingReports
 
   def check
-  	return getReleventReports.any?
+  	return getConfirmingReports.any?
   end
 end

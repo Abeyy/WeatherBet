@@ -11,8 +11,6 @@ class PredictionsController < ApplicationController
   # GET /predictions/1
   # GET /predictions/1.json
   def show
-    # @reports = Prediction.find_by_id(request :id).getReleventReports
-    # @reports = @prediction.getReleventReports
   end
 
   # GET /predictions/new

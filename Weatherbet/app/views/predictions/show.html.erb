@@ -24,7 +24,7 @@
 <% #if reports.any? %>
 	<p><strong>Confirming Reports:</strong>
 	<ul>
-	<% @prediction.getReleventReports.order(:start).find_each do |s| %>
+	<% @prediction.getConfirmingReports.order(:start).find_each do |s| %>
 		<li>
 		<%= s.start %> 
 		<%= s.end %> 
