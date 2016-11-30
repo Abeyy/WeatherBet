@@ -22,7 +22,39 @@ class LocationsController < ApplicationController
 
 
     # @hourPredictions = Prediction.all
+    @stationData = @location.getStationHash
+    @station = Location.getNearestStation(@location, @stationData)
 
+    @weatherJSON = @location.getWeatherHash
+    @stationWind = Location.getWeatherAtStation(@station, @weatherJSON)
+
+    # @stationLabel = {}
+    @stationBearing = {}
+    @stationSpeed = {}
+    @stationTemp = {}
+    @stationWind.each do |altitude, data|
+      @stationBearing[altitude] = data["bearing"]
+      @stationSpeed[altitude] = data["speed"]
+      @stationTemp[altitude] = data["temp"]
+    end
+
+
+    @windData = {
+      "bearing" => @stationBearing, 
+      "speed" => @stationSpeed,
+      "temp" => @stationTemp
+    }
+
+
+    # @predictionTimeline = [
+    #   ["label", start, fin],["label", start, fin],["label", start, fin]
+    # ]
+     @predictionTimeline = []
+     @location.predictions.each do |p| 
+        @predictionTimeline.push([p.user.email.to_s, p.start.to_s, p.end.to_s])
+     end
+
+    # @stationJSON
   end#show
 
   # GET /locations/new

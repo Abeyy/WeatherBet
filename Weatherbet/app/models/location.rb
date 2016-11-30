@@ -65,6 +65,24 @@ class Location < ApplicationRecord
 		return n==0?0:(score/n)+(n/20.0)
 	end
 
+	#break this out into Weather model
+	def getWeatherHash() 
+		#store this in the database
+		return HTTParty.get('http://winds-aloft.mohawkapps.com/').parsed_response
+	end
+	#break this out into Weather model
+	def getStationHash()
+		#store this in the database
+		return HTTParty.get('http://winds-aloft.mohawkapps.com/stations').parsed_response
+	end
+	def self.getNearestStation(place, stations) 
+		# if lat? 0/0
+		return stations.sort_by { |s| Location.distance(place.lat, place.lng, s["lat"], s["lon"]) }.first
+	end
+	def self.getWeatherAtStation(station, weather)
+		return weather["winds"][ station["code"] ]
+	end
+
 	def self.getCoords(place)
 		return (HTTParty.get('https://maps.googleapis.com/maps/api/geocode/json?', query: {address: place}).parsed_response.first[1].first)["geometry"]["location"]
 	end
@@ -74,9 +92,15 @@ class Location < ApplicationRecord
 		return RiceTest.new.distanceEarth(lat1, lng1, lat2, lng2)
 	end
 
+	# def distance(lat1, lng1) 
+	# 	require "#{Rails.root}/Cstuff/rice_test"
+	# 	return RiceTest.new.distanceEarth(lat, lng, lat2, lng2)
+	# end
+
 	def self.getMapFrame(lat, lng, zoom)
 		return "<iframe src="+getMapURI(lat, lng, zoom)+"</iframe>"
 	end
+
 	def self.getMapURI(lat, lng, zoom)
 		return "http://maps.google.com/maps?q="+
 			lat.to_s+","+lng.to_s+"&z="+zoom.to_s+"&output=embed"
