@@ -2,7 +2,7 @@
 
 <h1>Predictions</h1>
 
-<table>
+<table border=1>
   <thead>
     <tr>
       <th>Start</th>
@@ -13,11 +13,29 @@
   </thead>
 
   <tbody>
+    <% i = 0 %>
     <% @predictions.each do |prediction| %>
       <tr>
         <td><%= prediction.start %></td>
         <td><%= prediction.end %></td>
         <td><%= prediction.location.name %></td>
+        <td>
+          <% if prediction.check %>
+            √ <%= i+=1 %>
+            <ul>
+                <% prediction.getConfirmingReports.order(:start).find_each do |s| %>
+                  <li>
+                <%= s.start %> 
+                <%= s.end %> 
+                <%= s.user.email %> 
+                </li>
+              <% end %>
+              <% prediction.getConfirmingReports.find_each do |r| %>
+                <li><%= r.start.hour %>:00 to <%= r.end.hour %>:00 by <%= r.user.email %></li>
+              <% end %>
+            </ul>
+          <% end %>
+        </td>
         <td><%= link_to 'Show', prediction %></td>
         <td><%= link_to 'Edit', edit_prediction_path(prediction) %></td>
         <td><%= link_to 'Destroy', prediction, method: :delete, data: { confirm: 'Are you sure?' } %></td>

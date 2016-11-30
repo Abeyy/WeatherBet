@@ -25,3 +25,100 @@
 <br>
 
 <%= link_to 'New Location', new_location_path %>
+
+<br>
+<br>
+<p>
+<p><strong>the distance from brooklyn to bali is </strong>
+<% c1 = Location.getCoords("brookln") %>
+<% c2 = Location.getCoords("bali") %>
+<%= Location.distance(c1["lat"], c1["lng"], c2["lat"], c2["lng"]) %> km
+</p>
+<br>
+
+<p>
+<p>
+
+<%= form_tag(locations_path, method: :get) do %>
+<table>
+  <tr><td>firstPlace:</td><td><%= text_field_tag :p1, params[:p1] %></td></tr>
+  <tr><td>anotherPlace:</td><td><%= text_field_tag :p2, params[:p2] %></td></tr>
+</table>
+<%= submit_tag "Search" %>
+<% end %>
+</p>
+
+<% if params[:p1] and params[:p2] %>
+  <p><strong>the distance from <%= params[:p1] %> to <%= params[:p2] %> is </strong>
+  <% p1 = Location.getCoords(params[:p1]) %>
+  <% p2 = Location.getCoords(params[:p2]) %>
+  <%= Location.distance(p1["lat"], p1["lng"], p2["lat"], p2["lng"]) %> km
+  </p>
+<% end #end if p1&p2 %>
+</p>
+</p>
+
+
+
+
+<%= form_tag(locations_path, method: :get) do %>
+<table>
+  <tr><td>I am in:</td><td><%= text_field_tag :usrLoc, params[:usrLoc] %></td></tr>
+  <tr><td>I would like the forcast starting:</td><td><%= date_field_tag :forcastDate, params[:forcastDate] %></td></tr>
+</table>
+<%= submit_tag "Search" %>
+<% end %>
+
+<% if params[:usrLoc] #dont do anything unless there is a request %>
+    <% usrLoc = params[:usrLoc] %>
+    <% gps = Location.getCoords(usrLoc) %>
+
+  <p>
+  You are in <%= "#{usrLoc}. Your coordinates are lattitude #{gps['lat']} and longitude #{gps['lng']}" %> <br>
+  <%= content_tag :iframe, "NO FRAMES", src: Location.getMapURI(gps['lat'], gps['lng'], 15) %>
+
+  </p>
+
+
+
+<p>
+<table >
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Lattitude</th>
+      <th>Longitude</th>
+      <th>Distance</th>
+      <th colspan="5">Flyability Forcast</th>
+      <!-- <th colspan="1"></th> -->
+    </tr>
+  </thead>
+
+  <% forcastStart = (params[:forcastDate]? DateTime.parse(params[:forcastDate]) : DateTime.now)  %>
+
+
+  <tbody>
+    <% @locsByDist = @locations.sort_by { |loc| Location.distance(loc.lat, loc.lng, gps['lat'], gps['lng'] ) } %>
+    <% @locsByDist.each do |location| %>
+      <tr>
+        <td><%= location.name %></td>
+        <td><%= location.lat %></td>
+        <td><%= location.lng %></td>
+        <td><%= Location.distance(location.lat, location.lng, gps['lat'], gps['lng'] ).round(2) %></td>
+        <% (0...5).each do |i| %>
+          <td> | <%= '%2.2f' % location.getAPWn(forcastStart+i.days) %> | </td>
+        <% end %>
+        <td><%= link_to 'Show', location %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</p>
+
+<% end #if usrLoc %>
+
+<br>
+
+
+
+

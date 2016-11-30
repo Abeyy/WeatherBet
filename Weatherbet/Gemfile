@@ -33,9 +33,12 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-# Use Rice for callling  C / C++ 
-gem 'rice', '~> 2.1'
-gem 'devise'
+
+gem 'rice', '~> 2.1' # Use Rice for callling  C / C++ 
+gem 'devise'    # use devise for authentication
+gem 'httparty' #http requests
+
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

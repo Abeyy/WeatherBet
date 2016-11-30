@@ -32,6 +32,43 @@ float rice_laplace(float x, float n) {
   return (x+1)/(n+2);
 }
 
+#include <cmath> 
+#define pi 3.14159265358979323846
+#define earthRadiusKm 6371.0
+
+// This function converts decimal degrees to radians
+double deg2rad(double deg) {
+  return (deg * pi / 180);
+}
+
+//  This function converts radians to decimal degrees
+double rad2deg(double rad) {
+  return (rad * 180 / pi);
+}
+
+/**
+ * Returns the distance between two points on the Earth.
+ * Direct translation from http://en.wikipedia.org/wiki/Haversine_formula
+ * @param lat1d Latitude of the first point in degrees
+ * @param lon1d Longitude of the first point in degrees
+ * @param lat2d Latitude of the second point in degrees
+ * @param lon2d Longitude of the second point in degrees
+ * @return The distance between the two points in kilometers
+ */
+#define pi 3.14159265358979323846
+#define earthRadiusKm 6371.0
+
+double rice_distanceEarth(double lat1d, double lon1d, double lat2d, double lon2d) {
+  double lat1r, lon1r, lat2r, lon2r, u, v;
+  lat1r = deg2rad(lat1d);
+  lon1r = deg2rad(lon1d);
+  lat2r = deg2rad(lat2d);
+  lon2r = deg2rad(lon2d);
+  u = sin((lat2r - lat1r)/2);
+  v = sin((lon2r - lon1r)/2);
+  return 2.0 * earthRadiusKm * asin(sqrt(u * u + cos(lat1r) * cos(lat2r) * v * v));
+}
+
 String rice_hello() {
   return "hello";
 }
@@ -82,5 +119,6 @@ void Init_rice_test()
     .define_method("factorial", &rice_factorial)
     .define_method("pow", &rice_pow)
     .define_method("hello", &rice_hello)
+    .define_method("distanceEarth", &rice_distanceEarth)
     .define_method("laplace", &rice_laplace);
 }

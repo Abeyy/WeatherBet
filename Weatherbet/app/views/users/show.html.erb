@@ -1,9 +1,13 @@
 <h1><%= current_user.email %></h1>
 
+
+<% #@usrStats.correct = current_user.correctPredictions %>
+
 <br />
 <p>
 <h4>
-You have made <strong><%= @predictions.count %></strong> predictions, of which <strong><%= @usrStats.correct %></strong> where correct. </h4> This implies that the probability of your next prediction being correct is: <br />
+You have made <strong><%= @usrStats.total %></strong> predictions, of which <strong><%= @usrStats.correct %></strong> where correct. </h4> This implies that the probability of your next prediction being correct is: <%= current_user.getWeight %><br />
+
 <p>
 <strong><%= @usrStats.mle.round(3) %></strong> using the mle method <br />
 <strong><%= @usrStats.jeffreys.round(3) %></strong> using the Jeffreys method <br />
@@ -14,22 +18,30 @@ You have made <strong><%= @predictions.count %></strong> predictions, of which <
 
 
 <h2>my predictions</h2>
-
+<%= current_user.predictions.any? %>
 <p>
 <ul>
+<% i=0 %>
+<% j=0 %>
 <% current_user.predictions.each do |prediction| %>
   <li>
   	<%= prediction.location.name %> 
   	<%= prediction.start %> 
   	<%= prediction.end %> 
-  	<% if prediction.isTrue %>
-  		√<ul>
-  			<li><%= prediction.confirmingReport.location.name %>
-  			<%= prediction.confirmingReport.start %>
-  			<%= prediction.confirmingReport.end %>
-  			<%= (prediction.confirmingReport.user).email %></li>
-  		</ul>
-  	<% end %>
+
+    <% if prediction.check %>
+      <strong>√<%= j+=1 %></strong>
+      <ul>
+          <% prediction.getConfirmingReports.order(:start).find_each do |s| %>
+          <li>
+          <%= s.start %> 
+          <%= s.end %> 
+          <%= s.user.email %> 
+         </li>
+          <% end %>
+      </ul>
+    <% end %>
+
   </li>
 <% end %>
 </ul>
