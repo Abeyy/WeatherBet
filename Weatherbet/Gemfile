@@ -37,6 +37,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'rice', '~> 2.1' # Use Rice for callling  C / C++ 
 gem 'devise'    # use devise for authentication
 gem 'httparty' #http requests
+gem 'chartkick' #charts
 
 
 # Use Capistrano for deployment

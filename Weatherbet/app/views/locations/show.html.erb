@@ -6,6 +6,24 @@
 </p>
 
 
+<p>
+<%= form_tag(location_path(@location), method: :get) do %>
+<table>
+  <tr><td>I would like the forcast starting:</td><td><%= date_field_tag :forcastDate, params[:forcastDate] %></td></tr>
+</table>
+<%= submit_tag "Search" %>
+<% end %>
+<% forcastStart = (params[:forcastDate]? DateTime.parse(params[:forcastDate]) : DateTime.now)  %>
+
+<% data = Array.new %>
+<% (0...10).each do |i| %>
+	<% data.push([i.to_s+" days from now", @location.getAPWn(forcastStart+i.days)]) %>
+<% end %>
+
+<%= line_chart data, label: "Flyability" %>
+</p>
+
+
 <% min = @location.predictions.order(:start).first %>
 <% max = @location.predictions.order(:start).last %>
 <% scaleFactor = 60.0/((max.start.month-min.start.month-1)*33.33+max.start.day+max.start.hour/24.0) %>
@@ -31,3 +49,4 @@ apwn: <%= @location.getAPWn(p.start).round(2) %>
 
 <%= link_to 'Edit', edit_location_path(@location) %> |
 <%= link_to 'Back', locations_path %>
+
