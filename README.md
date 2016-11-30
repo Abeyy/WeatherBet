@@ -4,7 +4,7 @@ Weatherbet
 wbet.us
 
 
-Git Stratagy:
+Git Strategy:
 
 	Branching:
 		Create a new branch for each feature from a story on PivitolTracker
@@ -26,10 +26,10 @@ Git Stratagy:
 			git add [fileName]
 
 		5.
-			git commit -m"[commit message PT# 000000]"
+			git commit -m "[commit message PT# 000000]"
 
 			ex:
-				git commit -m"Implement Login for Members using Devise PT#123456"
+				git commit -m "Implement Login for Members using Devise PT#123456"
 		6.
 			git push
 
