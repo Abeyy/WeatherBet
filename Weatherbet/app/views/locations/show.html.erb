@@ -1,11 +1,61 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
-  <%= @location.name %>
+<!--   <h2>Name:</h2> -->
+  <h2><%= @location.name %></h2>
 </p>
 
+<div id="charts">
+	<p>
+		<strong>Nearest Airport: </strong>
+		<%= @station %>
+		<p>
+			<%= @stationWind %>
+			<%= line_chart @windData.map { |label, value| 
+				{name: label, data: value}
+			} %>
 
+			<% @windData.map do |label, value|  %>
+				<%= label %> <%= line_chart value, label: "blah" %>
+			<% end %>
+		</p>
+
+		<p>
+			<%= @stationWind %>
+			<%= line_chart @windData.map { |label, value| 
+				{name: label, data: value}
+			} %>
+
+			<% @windData.map do |label, value|  %>
+				<%= label %> <%= line_chart value, name: "blah" %>
+			<% end %>
+		</p>
+	</p>
+	<p>
+		<%= line_chart @windData %>
+	</p>
+
+	<p>
+	<strong>Voter's Prediction</strong>
+	<%= form_tag(location_path(@location), method: :get) do %>
+	<table>
+	  <tr><td>I would like the votes starting:</td><td><%= date_field_tag :forcastDate, params[:forcastDate] %></td></tr>
+	</table>
+	<%= submit_tag "Search" %>
+	<% end %>
+	<% forcastStart = (params[:forcastDate]? DateTime.parse(params[:forcastDate]) : DateTime.now)  %>
+
+	<% data = Array.new %>
+	<% (0...10).each do |i| %>
+		<% data.push([i.to_s+" days from now", @location.getAPWn(forcastStart+i.days)]) %>
+	<% end %>
+
+	<%= line_chart data, label: "Flyability" %>
+	</p>
+
+</div> <!-- end charts -->
+
+<div> <!-- begin predictions list -->
 <% min = @location.predictions.order(:start).first %>
 <% max = @location.predictions.order(:start).last %>
 <% scaleFactor = 60.0/((max.start.month-min.start.month-1)*33.33+max.start.day+max.start.hour/24.0) %>
@@ -28,6 +78,18 @@ apwn: <%= @location.getAPWn(p.start).round(2) %>
 </span>
 <br />
 <% end %>
+</div> <!-- end predictions list -->
+
+	<br>
+<br>
+<div><!-- timeline --><br>
+	<%= @predictionTimeline %><br><br>
+	<%= timeline @predictionTimeline %>
+</div><!-- end timeline -->
+
 
 <%= link_to 'Edit', edit_location_path(@location) %> |
 <%= link_to 'Back', locations_path %>
+<p>
+<h4><%= link_to 'I would like to make a prediction', new_prediction_path(location: @location) %></h4>
+</p>
