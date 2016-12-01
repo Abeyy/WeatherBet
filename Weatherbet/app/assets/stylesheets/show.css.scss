@@ -20,18 +20,14 @@
 }
 
 .background{
-	background-color: blue;
+	background: rgb(177,210,209);
+	min-height: 1500px;
 }
 
 .smallify-img{
 	height: 128px;
 	width: 128px;
 
-}
-
-.panel-default > .panel-color{
-	background: rgb(177,210,209);
-	padding-bottom:0px;
 }
 
 .no-bottom{

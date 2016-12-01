@@ -1,16 +1,16 @@
-
-<div class='backgroundJK'>
+<% j=0 %>
+<div class='background'>
 <div class='row'>
 <div class='col-s-2 col-md-2 col-lg-2'>
 </div>
 
 <div class='col-s-8 col-md-8 col-lg-8'>
   <div class='panel panel-default marg-top'>
-    <div class='panel-color'>
-    <div class='panel-heading'>
+    
+    
       <h1 class='center'>Welcome, <%= current_user.email %></h1>
-    </div>
-    </div>
+   
+   
   </div>
 </div>
 
@@ -21,8 +21,8 @@
 <div class='row'>
 <div class='col-s-4 col-md-4 col-lg-4'>
   <div class='panel panel-default panel-dash'>
-    <div class='panel-color'>
-    <div class='panel-heading'>
+    
+    
     <div class='center'>
     <h1> Prediction Accuracy </h1>
     </div>
@@ -35,8 +35,8 @@
         <strong><%= @usrStats.jeffreys.round(3) %></strong> using the Jeffreys method <br />
         <strong><%= @usrStats.laplace.round(3) %></strong> using the LaPlace method <br />
     </p>
-    </div>
-    </div>
+    
+  
     </div>
   </div>
 </div> 
@@ -45,9 +45,9 @@
 
 <div class='col-s-4 col-md-4 col-lg-4'>
   <div class='panel panel-default panel-dash'>
-    <div class='panel-color'>
+
     <div class='center'>
-    <div class='panel-heading'>
+    
     <h1> My Predictions </h1>
     
         <% if current_user.predictions.any?%>
@@ -82,8 +82,7 @@
     </ul>
     </div>
     </div>
-  </div>
-</div> 
+
 </div>
 
 <div class='col-s-4 col-md-4 col-lg-4'>
@@ -104,5 +103,4 @@
   </div>
 </div> 
 </div>
-
 
