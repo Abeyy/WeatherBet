@@ -1,23 +1,92 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-<!--   <h2>Name:</h2> -->
-  <h2><%= @location.name %></h2>
-</p>
-
-
-<div>
-	Wind: <%= @surfaceWind %>   <br>
-	Atmo: <%= @surfaceAtmo %> <br>
-	Cond: <%= @surfaceCondition %>
+<div class='row'>
+<div class='col-s-2 col-md-2 col-lg-2'>
 </div>
+<div class='col-s-8 col-md-8 col-lg-8'>
+<div class='panel panel-default'>
+	<h1 class='location-heading'> Your location: <%=@location.name %></h1>
+</div>
+</div>
+
+<div class='col-s-2 col-md-2 col-lg-2'>
+</div>
+
+</div> <!-- row ends -->
+
+<div class="row">
+
+<div class='col-s-3 col-md-3 col-lg-3'>
+<div class='panel panel-primary panel-location'>
+
+	<div class='panel-heading'>
+	<h2 class='center'> Nearest Airport </h2>
+	</div>
+
+	<div class='panel-body'>
+	<p><strong> Name: </strong> <%= @station["name"] %> </p>
+	<p><strong> Code: </strong> <%= @station["code"] %> </p>
+	<p><strong> City: </strong> <%= @station["city"] %> </p>
+	<p><strong> State: </strong> <%= @station["state"] %> </p>
+	</div>
+</div>
+</div>
+
+<div class='col-s-3 col-md-3 col-lg-3'>
+<div class='panel panel-success panel-location'>
+
+	<div class='panel-heading'>
+	<h2 class='center'> Wind Status </h2>
+	</div>
+
+	<div class='panel-body'>
+	<p><strong> Wind Speed: </strong> <%= @surfaceWind["speed"] %> </p>
+	<p><strong> Wind Speed: </strong> <%= @surfaceWind["direction"] %> </p>
+	<p><strong> Wind Speed: </strong> <%= @surfaceWind["chill"] %> </p>
+	</div>
+</div>
+</div>
+
+<div class='col-s-3 col-md-3 col-lg-3'>
+<div class='panel panel-warning panel-location'>
+
+	<div class='panel-heading'>
+	<h2 class='center'> Atmospheric Status </h2>
+	</div>
+
+	<div class='panel-body'>
+	<p><strong> Pressure: </strong> <%= @surfaceAtmo["pressure"] %> </p>
+	<p><strong> Rising: </strong> <%= @surfaceAtmo["rising"] %> </p>
+	<p><strong> Humidity: </strong> <%= @surfaceAtmo["humidity"] %> </p>
+	<p><strong> Visibility: </strong> <%= @surfaceAtmo["visibility"] %> </p>
+	</div>
+</div>
+</div>
+
+
+
+<div class='col-s-3 col-md-3 col-lg-3'>
+
+<div class='panel panel-danger panel-location'>
+
+	<div class='panel-heading'>
+	<h2 class='center'> Location Status </h2>
+	</div>
+
+	<div class='panel-body'>
+	<p><strong> Date: </strong> <%= @surfaceCondition["date"] %> </p>
+	<p><strong> Temperature: </strong> <%= @surfaceCondition["temp"] %> </p>
+	<p><strong> Weather Status: </strong> <%= @surfaceCondition["text"] %> </p>
+	</div>
+</div>
+</div>
+
+</div> <!-- row ends -->
+
 
 <div id="charts">
 	<p>
-		<strong>Nearest Airport: </strong>
-		<%= @station %>
 		<p>
-			<%= @stationWind %>
 			<%= line_chart @windData.map { |label, value| 
 				{name: label, data: value}
 			} %>

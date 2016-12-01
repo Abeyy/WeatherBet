@@ -1,3 +1,21 @@
-.test{
-	color:red'
+.liner{
+	text-decoration: underline;
+}
+
+.center{
+	text-align: center;
+}
+.centerstuff{
+	margin: 0 auto;
+	display: block;
+}
+
+.background{
+	min-height: 1500px;
+	background: rgb(157,218,231);
+}
+
+.panel-default{
+	margin-top: -5px;
+	padding-top: 0;
 }
