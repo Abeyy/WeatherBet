@@ -54,7 +54,7 @@
         <% if current_user.predictions.any?%>
       <p>
       <ul>
-          <% current_user.predictions.each do |prediction| %>
+          <% current_user.predictions.take(5).each do |prediction| %>
       <li>
         <%= prediction.location.name %> 
         <%= prediction.start %> 
@@ -97,8 +97,7 @@
    <ul>
 
   <% reportTimeline = [] %>
-
-   <% current_user.reports.each do |report| %>
+   <% current_user.reports.take(8).each do |report| %>
    <li><%= report.location.name %> <%= report.start %> <%= report.end %></li>
    <% reportTimeline.push([report.location.name, report.start, report.end]) %>
   <% end %>
@@ -112,8 +111,37 @@
 </div> 
 </div>
 
-Predictions:<br>
+<div class='row'>
+<div class='col-s-1 col-md-1 col-lg-1'>
+</div>
+<div class='col-s-9 col-md-9 col-lg-9'>
+<div class='panel panel-default'>
+<div class='panel-heading'>
+<h1> My Predictions: </h1>
+</div>
+<div class='panel-body'>
 <%= timeline predictionTimeline, height: "320px" %>
+</div>
+</div>
+</div>
+<div class='col-s-1 col-md-1 col-lg-1'>
+</div>
+</div>
 
-Reports:<br>
+<div class='row'>
+<div class='col-s-1 col-md-1 col-lg-1'>
+</div>
+<div class='col-s-9 col-md-9 col-lg-9'>
+<div class='panel panel-default'>
+<div class='panel-heading'>
+<h1> My Reports: </h1>
+</div>
+<div class='panel-body'>
 <%= timeline reportTimeline, height: "320px" %>
+</div>
+</div>
+</div>
+<div class='col-s-1 col-md-1 col-lg-1'>
+</div>
+</div>
+
