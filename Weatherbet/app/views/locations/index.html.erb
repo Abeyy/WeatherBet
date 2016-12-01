@@ -23,6 +23,7 @@
   <% usrLoc.name = name %>
 <% end %>
 
+
 <p> <!-- begin forcast table -->
 <table style="border-collapse: separate; border-spacing: 15px 1px;">
   <thead>
@@ -64,6 +65,8 @@
   </tbody>
 </table>
 </p> <!-- end forcast table -->
+
+
 </div>
 </div> 
 </div>
@@ -94,81 +97,5 @@
 </div> <!-- end form column-->
 
 </div> <!--end row -->
-
-
-
-<!-- 
-
-<p>
-
-
-
-
-
-
-
-
-
-
-<br>
-
-
-
-
-
-
-
-<p>
-<p>
-
-<%= form_tag(locations_path, method: :get) do %>
-<table>
-  <tr><td>firstPlace:</td><td><%= text_field_tag :p1, params[:p1] %></td></tr>
-  <tr><td>anotherPlace:</td><td><%= text_field_tag :p2, params[:p2] %></td></tr>
-</table>
-<%= submit_tag "Search" %>
-<% end %>
-</p>
-
-<% if params[:p1] and params[:p2] %>
-  <p><strong>the distance from <%= params[:p1] %> to <%= params[:p2] %> is </strong>
-  <% p1 = Location.getCoords(params[:p1]) %>
-  <% p2 = Location.getCoords(params[:p2]) %>
-  <%= Location.distance(p1["lat"], p1["lng"], p2["lat"], p2["lng"]) %> km
-  </p>
-<% end #end if p1&p2 %>
-</p>
-</p>
-
-
-
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @locations.each do |location| %>
-      <tr>
-        <td><%= location.name %></td>
-        <td><%= link_to 'Show', location %></td>
-        <td><%= link_to 'Edit', edit_location_path(location) %></td>
-        <td><%= link_to 'Destroy', location, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Location', new_location_path %>
-
-
-
- -->
 
  </div>
