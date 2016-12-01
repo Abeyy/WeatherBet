@@ -5,6 +5,13 @@
   <h2><%= @location.name %></h2>
 </p>
 
+
+<div>
+	Wind: <%= @surfaceWind %>   <br>
+	Atmo: <%= @surfaceAtmo %> <br>
+	Cond: <%= @surfaceCondition %>
+</div>
+
 <div id="charts">
 	<p>
 		<strong>Nearest Airport: </strong>
@@ -16,7 +23,7 @@
 			} %>
 
 			<% @windData.map do |label, value|  %>
-				<%= label %> <%= line_chart value, label: "blah" %>
+				<%= label %> <%= line_chart value, label: label %>
 			<% end %>
 		</p>
 
@@ -27,7 +34,7 @@
 			} %>
 
 			<% @windData.map do |label, value|  %>
-				<%= label %> <%= line_chart value, name: "blah" %>
+				<%= label %> <%= line_chart value, name: "name" %>
 			<% end %>
 		</p>
 	</p>
@@ -36,14 +43,15 @@
 	</p>
 
 	<p>
+	<% forcastStart = (params[:forcastDate]? DateTime.parse(params[:forcastDate]) : DateTime.now)  %>
 	<strong>Voter's Prediction</strong>
 	<%= form_tag(location_path(@location), method: :get) do %>
 	<table>
-	  <tr><td>I would like the votes starting:</td><td><%= date_field_tag :forcastDate, params[:forcastDate] %></td></tr>
+	  <tr><td>I would like the votes starting:</td><td><%= date_field_tag :forcastDate, params[:forcastDate], :value => forcastStart.strftime('%Y-%m-%d')  %></td></tr>
 	</table>
 	<%= submit_tag "Search" %>
 	<% end %>
-	<% forcastStart = (params[:forcastDate]? DateTime.parse(params[:forcastDate]) : DateTime.now)  %>
+
 
 	<% data = Array.new %>
 	<% (0...10).each do |i| %>
@@ -84,7 +92,7 @@ apwn: <%= @location.getAPWn(p.start).round(2) %>
 <br>
 <div><!-- timeline --><br>
 	<%= @predictionTimeline %><br><br>
-	<%= timeline @predictionTimeline %>
+	<%= timeline @predictionTimeline, height: "600px" %>
 </div><!-- end timeline -->
 
 
