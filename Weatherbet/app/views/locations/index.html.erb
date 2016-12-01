@@ -1,10 +1,11 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Locations</h1>
+<h1 class='test'>Locations</h1>
+
 
 
 <% usrLoc = (params[:usrLoc] ? params[:usrLoc] : current_user ? current_user.reports.first.location : "Bear Hill Preserve") %> 
-
+<% usrLoc  = (usrLoc ? usrLoc : "Bear Hill Preserve") %>
 <% forcastStart = (params[:forcastDate] ? DateTime.parse(params[:forcastDate]) : DateTime.now)  %>
 
 <% #usrLoc = Location.getCoords(usrLoc) %>
