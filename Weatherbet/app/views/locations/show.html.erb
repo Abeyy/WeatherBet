@@ -84,7 +84,17 @@
 </div> <!-- row ends -->
 
 
-<div id="charts">
+<div id="charts" class='charts'>
+<div class="row">
+	<div class='col-s-1 col-md-1 col-lg-1'>
+	</div>
+
+	<div class='col-s-9 col-md-9 col-lg-9'>
+	<div class='panel panel-default'>
+	<div class='panel-heading'>
+	<h2> WeatherBet Wind Forecast </h2>
+	</div>
+	<div class='panel-body'>
 	<p>
 		<p>
 			<%= line_chart @windData.map { |label, value| 
@@ -95,65 +105,77 @@
 				<%= label %> <%= line_chart value, label: label %>
 			<% end %>
 		</p>
+
 	</p>
+
+	
 
 	<p>
 	<% forcastStart = (params[:forcastDate]? DateTime.parse(params[:forcastDate]) : DateTime.now)  %>
-	<strong>Voter's Prediction</strong>
+	</div>
+	</div>
+	<div class='col-s-1 col-md-1 col-lg-1'>
+	</div>
+</div> <!-- end panel -->
+</div> <!-- end bigger row -->
+</div>
+
+	<div class='make_prediction'>
+	
+	<div class='row'>
+	<div class='col-s-3 col-md-3 col-lg-3'>
+	</div>
+	<div class='col-s-6 col-md-6 col-lg-6'>
+	<div class='panel panel-default'>
+	<h1 class='center'><%= link_to 'I would like to make a prediction', new_prediction_path(location: @location) %></h1>
+	</div>
+	</div>
+	<div class='col-s-3 col-md-3 col-lg-3'>
+	</div>
+	</div>
+	</div>
+
+	<div class="row">
+	<div class='col-s-3 col-md-3 col-lg-3'>
+	<br>
+	<br>
+	<br>
+	<h2><strong>Voter's Prediction</strong></h2>
 	<%= form_tag(location_path(@location), method: :get) do %>
 	<table>
-	  <tr><td>I would like the votes starting:</td><td><%= date_field_tag :forcastDate, params[:forcastDate], :value => forcastStart.strftime('%Y-%m-%d')  %></td></tr>
+	  <tr><td>I would like to view predictions starting from:</td><td><%= date_field_tag :forcastDate, params[:forcastDate], :value => forcastStart.strftime('%Y-%m-%d')  %></td></tr>
 	</table>
+	<br>
 	<%= submit_tag "Search" %>
 	<% end %>
-
-
+	</div>
+	<div class='col-s-9 col-md-9 col-lg-9'>
 	<% data = Array.new %>
 	<% (0...10).each do |i| %>
 		<% data.push([i.to_s+" days from now", @location.getAPWn(forcastStart+i.days)]) %>
 	<% end %>
 
 	<%= line_chart data, label: "Flyability" %>
+	</div>
+	</div> <!-- end row -->
 	</p>
 
 </div> <!-- end charts -->
 
-<br>
-<div><!-- timeline --><br>
-	<%= timeline @predictionTimeline, height: "600px" %>
-</div><!-- end timeline -->
 
 
-<div> <!-- begin predictions list -->
-<% min = @location.predictions.order(:start).first %>
-<% max = @location.predictions.order(:start).last %>
-<% scaleFactor = 60.0/((max.start.month-min.start.month-1)*33.33+max.start.day+max.start.hour/24.0) %>
-<% @location.predictions.order(:start).each do |p| %>
- <span style="
-	position: absolute; 
-	display:inline-block; 
-	left: <%= scaleFactor*((p.start.month-min.start.month-1)*30.333+p.start.day+p.start.hour/24.0) %>%;
-	" > 
-
-pnts: <%= @location.getScore(p.start).round(2) %> 
-cp: <%= @location.getCondProb(p.start).round(2) %> 
-cpn: <%= @location.getCondProbN(p.start).round(2) %> 
-cpn2: <%= @location.getCondProbN2(p.start).round(2) %> 
-apw: <%= @location.getAvgPredictingWeight(p.start).round(2) %> 
-apwn: <%= @location.getAPWn(p.start).round(2) %> 
-
-<%= link_to "#{p.start.hour}:00 to #{p.end.hour}:00 on #{p.start.month} / #{p.start.day} / #{p.start.year} (#{p.user.getWeight.round(2)})", prediction_path(p) %>
-
-</span>
-<br />
-<% end %>
 </div> <!-- end predictions list -->
 
 	<br>
+=======
+</div> --> <!-- end predictions list -->
+<br>
+<br>
+<div class='user-voters'>
+<h1 class='center'> Users who have voted at this location: </h1>
+<div><!-- timeline --><br>
+	<!-- <%= @predictionTimeline %><br><br> -->
+	<%= timeline @predictionTimeline, height: "600px" %>
+</div><!-- end timeline -->
+</div>
 
-
-<%= link_to 'Edit', edit_location_path(@location) %> |
-<%= link_to 'Back', locations_path %>
-<p>
-<h4><%= link_to 'I would like to make a prediction', new_prediction_path(location: @location) %></h4>
-</p>
