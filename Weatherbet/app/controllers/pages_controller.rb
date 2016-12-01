@@ -3,6 +3,7 @@ class PagesController < ApplicationController
   end
 
   def weather
+    redirect_to "/locations"
   end
 
   def locations
