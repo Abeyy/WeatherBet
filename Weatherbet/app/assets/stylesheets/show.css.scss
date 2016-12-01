@@ -3,13 +3,38 @@
 }
 
 .center{
-	text-align:center
+	text-align:center;
+
 }
 
 .panel{
 	color: black;
+
+
+}
+
+.panel-dash{
+	min-height: 300px;
+	background-image: none;
+	background-color: red;
 }
 
 .background{
 	background-color: blue;
+}
+
+.smallify-img{
+	height: 128px;
+	width: 128px;
+
+}
+
+.panel-default > .panel-color{
+	background: rgb(177,210,209);
+	padding-bottom:0px;
+}
+
+.no-bottom{
+	padding-bottom: 0px;
+	margin-bottom: 0px;
 }
