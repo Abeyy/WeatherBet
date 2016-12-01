@@ -49,7 +49,8 @@
     <div class='center'>
     
     <h1> My Predictions </h1>
-    
+        <% predictionTimeline = [] #prediction Timeline %>
+
         <% if current_user.predictions.any?%>
       <p>
       <ul>
@@ -58,6 +59,9 @@
         <%= prediction.location.name %> 
         <%= prediction.start %> 
         <%= prediction.end %> 
+
+        <% predictionTimeline.push([prediction.location.name, prediction.start, prediction.end]) %>
+        
         <% if prediction.check %>
       <strong>√<%= j+=1 %></strong>
       <ul>
@@ -91,8 +95,12 @@
    <% if current_user.reports.any? %>
    <p> Here are your recent reports: </p>
    <ul>
+
+  <% reportTimeline = [] %>
+
    <% current_user.reports.each do |report| %>
    <li><%= report.location.name %> <%= report.start %> <%= report.end %></li>
+   <% reportTimeline.push([report.location.name, report.start, report.end]) %>
   <% end %>
   </ul>
   <% else %>
@@ -104,3 +112,5 @@
 </div> 
 </div>
 
+<%= timeline predictionTimeline %>
+<%= timeline reportTimeline %>
