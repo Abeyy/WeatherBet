@@ -1,10 +1,16 @@
+<div class='background'>
 <p id="notice"><%= notice %></p>
 
-<h1>Locations</h1>
-
+<div class='row'>
+<div class='col-s-8 col-md-8 col-lg-8'>
+<div class='panel panel-default'>
+<div class='panel-heading'>
+<h1 class='center liner'>Nearby Locations</h1>
+</div>
+<div class='panel-body'>
 
 <% usrLoc = (params[:usrLoc] ? params[:usrLoc] : current_user ? current_user.reports.first.location : "Bear Hill Preserve") %> 
-
+<% usrLoc  = (usrLoc ? usrLoc : "Bear Hill Preserve") %>
 <% forcastStart = (params[:forcastDate] ? DateTime.parse(params[:forcastDate]) : DateTime.now)  %>
 
 <% #usrLoc = Location.getCoords(usrLoc) %>
@@ -16,6 +22,7 @@
   <% usrLoc.lng = gp1["lng"] %>
   <% usrLoc.name = name %>
 <% end %>
+
 
 <p> <!-- begin forcast table -->
 <table style="border-collapse: separate; border-spacing: 15px 1px;">
@@ -60,84 +67,35 @@
 </p> <!-- end forcast table -->
 
 
+</div>
+</div> 
+</div>
+<div class='col-s-4 col-md-4 col-lg-4'>
 
-<p>
-
+<div class='panel panel-default'>
 <%= form_tag(locations_path, method: :get) do %>
 <table>
-  <tr><td>I am in:</td><td><%= text_field_tag :usrLoc, params[:usrLoc], :value => usrLoc.name %></td></tr>
-  <tr><td>I would like the forcast starting:</td><td><%= date_field_tag :forcastDate, params[:forcastDate], :value => forcastStart.strftime('%Y-%m-%d') %></td></tr>
+  <tr><td><strong>I am in:</strong></td><td><%= text_field_tag :usrLoc, params[:usrLoc], :value => usrLoc.name %></td></tr>
+  <tr><td><strong>I would like the forcast starting:</strong></td><td> <%= date_field_tag :forcastDate, params[:forcastDate], :value => forcastStart.strftime('%Y-%m-%d') %></td></tr>
 </table>
+<br>
 <%= submit_tag "Search" %>
+<br>
+
 <% end %>
+</div>
 
-
-
-
+<div class='panel panel-default'>
+  <br>
   <p>
-  You are in <%= "#{usrLoc.name}. Your coordinates are lattitude #{usrLoc.lat} and longitude #{usrLoc.lng}. Here is the prediction based for the next five days starting on #{forcastStart.strftime('%B, %d %Y')}" %> <br>
+  You are currently in <%= "#{usrLoc.name}. Your coordinates are lattitude #{usrLoc.lat} and longitude #{usrLoc.lng}. Here is the prediction based for the next five days starting on #{forcastStart.strftime('%B, %d %Y')}" %> <br>
+  <div class='centerstuff'>
   <%= content_tag :iframe, "NO FRAMES", src: Location.getMapURI(usrLoc.lat, usrLoc.lng, 15), id: "mapFrame" %>
-
+  </div>
   </p>
+</div>
+</div> <!-- end form column-->
 
+</div> <!--end row -->
 
-
-<br>
-
-
-
-
-
-
-
-<p>
-<p>
-
-<%= form_tag(locations_path, method: :get) do %>
-<table>
-  <tr><td>firstPlace:</td><td><%= text_field_tag :p1, params[:p1] %></td></tr>
-  <tr><td>anotherPlace:</td><td><%= text_field_tag :p2, params[:p2] %></td></tr>
-</table>
-<%= submit_tag "Search" %>
-<% end %>
-</p>
-
-<% if params[:p1] and params[:p2] %>
-  <p><strong>the distance from <%= params[:p1] %> to <%= params[:p2] %> is </strong>
-  <% p1 = Location.getCoords(params[:p1]) %>
-  <% p2 = Location.getCoords(params[:p2]) %>
-  <%= Location.distance(p1["lat"], p1["lng"], p2["lat"], p2["lng"]) %> km
-  </p>
-<% end #end if p1&p2 %>
-</p>
-</p>
-
-
-
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @locations.each do |location| %>
-      <tr>
-        <td><%= location.name %></td>
-        <td><%= link_to 'Show', location %></td>
-        <td><%= link_to 'Edit', edit_location_path(location) %></td>
-        <td><%= link_to 'Destroy', location, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Location', new_location_path %>
-
-
-
+ </div>

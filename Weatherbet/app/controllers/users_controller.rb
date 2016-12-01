@@ -8,6 +8,7 @@ class UsersController < ApplicationController
       @usrStats.correct = current_user.correctPredictions
       @usrStats.total   = current_user.totalPredictions
 
+      
     end #end if user_signed_in
   end
 end

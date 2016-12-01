@@ -1,8 +1,12 @@
 class PagesController < ApplicationController
   def home
+    if user_signed_in?
+      redirect_to "/locations"
+    end
   end
 
   def weather
+    redirect_to "/locations"
   end
 
   def locations

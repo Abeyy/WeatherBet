@@ -1,69 +1,16 @@
-<h1><%= current_user.email %></h1>
-
-
-<% #@usrStats.correct = current_user.correctPredictions %>
-
-<br />
-<p>
-<h4>
-You have made <strong><%= @usrStats.total %></strong> predictions, of which <strong><%= @usrStats.correct %></strong> where correct. </h4> This implies that the probability of your next prediction being correct is: <%= current_user.getWeight %><br />
-
-<p>
-<strong><%= @usrStats.mle.round(3) %></strong> using the mle method <br />
-<strong><%= @usrStats.jeffreys.round(3) %></strong> using the Jeffreys method <br />
-<strong><%= @usrStats.laplace.round(3) %></strong> using the LaPlace method <br />
-</p>
-
-</p>
-
-
-<h2>my predictions</h2>
-<%= current_user.predictions.any? %>
-<p>
-<ul>
-<% i=0 %>
 <% j=0 %>
-<% current_user.predictions.each do |prediction| %>
-  <li>
-  	<%= prediction.location.name %> 
-  	<%= prediction.start %> 
-  	<%= prediction.end %> 
-
-    <% if prediction.check %>
-      <strong>√<%= j+=1 %></strong>
-      <ul>
-          <% prediction.getConfirmingReports.order(:start).find_each do |s| %>
-          <li>
-          <%= s.start %> 
-          <%= s.end %> 
-          <%= s.user.email %> 
-         </li>
-          <% end %>
-      </ul>
-    <% end %>
-
-  </li>
-<% end %>
-</ul>
-</p>
-
-<p>
-<h2>my reports</h2>
-<ul>
-<% current_user.reports.each do |report| %>
-  <li><%= report.location.name %> <%= report.start %> <%= report.end %></li>
-<% end %>
-</ul>
-</p>
-
-<div class='backgroundJK'>
+<div class='background'>
 <div class='row'>
 <div class='col-s-2 col-md-2 col-lg-2'>
 </div>
 
 <div class='col-s-8 col-md-8 col-lg-8'>
   <div class='panel panel-default marg-top'>
+    
+    
       <h1 class='center'>Welcome, <%= current_user.email %></h1>
+   
+   
   </div>
 </div>
 
@@ -73,27 +20,37 @@ You have made <strong><%= @usrStats.total %></strong> predictions, of which <str
 
 <div class='row'>
 <div class='col-s-4 col-md-4 col-lg-4'>
-  <div class='panel panel-default'>
+  <div class='panel panel-default panel-dash'>
+    
+    
     <div class='center'>
     <h1> Prediction Accuracy </h1>
     </div>
     <p>You have made <strong><%= @usrStats.total %></strong> predictions, of which <strong><%= @usrStats.correct %></strong> where correct. </p> 
 
     <p>This implies that the probability of your next prediction being correct is: <br />
-
+    <br>
+    <div class="center">
     <p><strong><%= @usrStats.mle.round(3) %></strong> using the mle method <br />
         <strong><%= @usrStats.jeffreys.round(3) %></strong> using the Jeffreys method <br />
         <strong><%= @usrStats.laplace.round(3) %></strong> using the LaPlace method <br />
     </p>
+    
+  
+    </div>
   </div>
 </div> 
 
+<% j=0 %>
 
 <div class='col-s-4 col-md-4 col-lg-4'>
-  <div class='panel panel-default'>
+  <div class='panel panel-default panel-dash'>
+
     <div class='center'>
+    
     <h1> My Predictions </h1>
-    </div>
+        <% predictionTimeline = [] #prediction Timeline %>
+
         <% if current_user.predictions.any?%>
       <p>
       <ul>
@@ -102,6 +59,9 @@ You have made <strong><%= @usrStats.total %></strong> predictions, of which <str
         <%= prediction.location.name %> 
         <%= prediction.start %> 
         <%= prediction.end %> 
+
+        <% predictionTimeline.push([prediction.location.name, prediction.start, prediction.end]) %>
+        
         <% if prediction.check %>
       <strong>√<%= j+=1 %></strong>
       <ul>
@@ -119,31 +79,41 @@ You have made <strong><%= @usrStats.total %></strong> predictions, of which <str
      <% end %>
      <% else %>
         <p class='center'> You have not made any predictions yet. </p>
+        <img class='img-circle smallify-img center-block' src='/assets/govote.jpg'>
+        <p class='no-bottom'> You can make predictions by going to the locations page, viewing the weather at a specific date, and voting! </p>
+
         <% end %> 
     </ul>
-    </p>
-    
-  </div>
-</div> 
+    </div>
+    </div>
+
+</div>
 
 <div class='col-s-4 col-md-4 col-lg-4'>
-  <div class='panel panel-default'>
+  <div class='panel panel-default panel-dash'>
   <h1 class='center'> My Reports </h1>
+   <% if current_user.reports.any? %>
+   <p> Here are your recent reports: </p>
    <ul>
+
+  <% reportTimeline = [] %>
+
    <% current_user.reports.each do |report| %>
    <li><%= report.location.name %> <%= report.start %> <%= report.end %></li>
+   <% reportTimeline.push([report.location.name, report.start, report.end]) %>
   <% end %>
   </ul>
-    
+  <% else %>
+  <p class='center'> You have not submitted any reports! </p>
+  <img class='img-circle center-block smallify-img' src='/assets/reports_missing.png'>
+  <p> Reports tell us whether our predictions were correct or not. Let us know! </p>
+  <% end %>
   </div>
 </div> 
 </div>
-<% if @usrStats.total > 100 %>
-<h1> HOLY </h1>
-<% elsif @usrStats.total  == 1 %>
-<h1> Not bad.. 1 </h1>
-<% else %>
-<h1> ELSE? <%= @usrStats.total %> </h1>
-<% end %>
-<h1>hi <% @predictions %></h1>
-</div>
+
+Predictions:<br>
+<%= timeline predictionTimeline, height: "320px" %>
+
+Reports:<br>
+<%= timeline reportTimeline, height: "320px" %>
