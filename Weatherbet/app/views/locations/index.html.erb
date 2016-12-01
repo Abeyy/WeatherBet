@@ -2,6 +2,119 @@
 
 <h1>Locations</h1>
 
+
+<% usrLoc = (params[:usrLoc] ? params[:usrLoc] : current_user ? current_user.reports.first.location : "Bear Hill Preserve") %> 
+
+<% forcastStart = (params[:forcastDate] ? DateTime.parse(params[:forcastDate]) : DateTime.now)  %>
+
+<% #usrLoc = Location.getCoords(usrLoc) %>
+<% unless usrLoc.class == Location.new.class %>
+  <% name = usrLoc %>
+  <% gp1 = Location.getCoords(usrLoc) %>
+  <% usrLoc = Location.new %>
+  <% usrLoc.lat = gp1["lat"] %>
+  <% usrLoc.lng = gp1["lng"] %>
+  <% usrLoc.name = name %>
+<% end %>
+
+<p> <!-- begin forcast table -->
+<table style="border-collapse: separate; border-spacing: 15px 1px;">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Lattitude</th>
+      <th>Longitude</th>
+      <th>Distance</th>
+      <% (0...5).each do |n| %>
+        <th style="text-align: center;"><%= "+#{n}" %></th>
+      <% end %>
+      <th> days </th>
+      <!-- <th colspan="5">Flyability Forcast</th> -->
+      <!-- <th colspan="1"></th> -->
+    </tr>
+  </thead>
+
+
+
+
+  <tbody>
+    <% @locsByDist = @locations.sort_by { |loc| Location.distance(loc.lat, loc.lng, usrLoc.lat, usrLoc.lng ) } %>
+    <% @locsByDist.each do |location| %>
+      <tr>
+        <td><%= location.name %></td>
+        <td><%= location.lat.round(2) %></td>
+        <td><%= location.lng.round(2) %></td>
+        <td><%= Location.distance(location.lat, location.lng, usrLoc.lat, usrLoc.lng ).round(2) %></td>
+        <% (0...5).each do |i| %>
+          <% score = location.getAPWn(forcastStart+i.days) %>
+          
+          <td style='padding: 2px; padding-right: 5px; background-color: rgb(<%= (255-255*score).round %>, <%= score<0.5 ? 255 : (255*score).round %>, <%= (255-255*score).round %>);' >
+            | <%= '%2.2f' % score %> |
+          </td>
+        <% end %>
+        <td><%= link_to 'Show', location %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</p> <!-- end forcast table -->
+
+
+
+<p>
+
+<%= form_tag(locations_path, method: :get) do %>
+<table>
+  <tr><td>I am in:</td><td><%= text_field_tag :usrLoc, params[:usrLoc], :value => usrLoc.name %></td></tr>
+  <tr><td>I would like the forcast starting:</td><td><%= date_field_tag :forcastDate, params[:forcastDate], :value => forcastStart.strftime('%Y-%m-%d') %></td></tr>
+</table>
+<%= submit_tag "Search" %>
+<% end %>
+
+
+
+
+  <p>
+  You are in <%= "#{usrLoc.name}. Your coordinates are lattitude #{usrLoc.lat} and longitude #{usrLoc.lng}. Here is the prediction based for the next five days starting on #{forcastStart.strftime('%B, %d %Y')}" %> <br>
+  <%= content_tag :iframe, "NO FRAMES", src: Location.getMapURI(usrLoc.lat, usrLoc.lng, 15), id: "mapFrame" %>
+
+  </p>
+
+
+
+<br>
+
+
+
+
+
+
+
+<p>
+<p>
+
+<%= form_tag(locations_path, method: :get) do %>
+<table>
+  <tr><td>firstPlace:</td><td><%= text_field_tag :p1, params[:p1] %></td></tr>
+  <tr><td>anotherPlace:</td><td><%= text_field_tag :p2, params[:p2] %></td></tr>
+</table>
+<%= submit_tag "Search" %>
+<% end %>
+</p>
+
+<% if params[:p1] and params[:p2] %>
+  <p><strong>the distance from <%= params[:p1] %> to <%= params[:p2] %> is </strong>
+  <% p1 = Location.getCoords(params[:p1]) %>
+  <% p2 = Location.getCoords(params[:p2]) %>
+  <%= Location.distance(p1["lat"], p1["lng"], p2["lat"], p2["lng"]) %> km
+  </p>
+<% end #end if p1&p2 %>
+</p>
+</p>
+
+
+
+
 <table>
   <thead>
     <tr>
@@ -25,3 +138,6 @@
 <br>
 
 <%= link_to 'New Location', new_location_path %>
+
+
+

@@ -1,9 +1,103 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
-  <%= @location.name %>
+<!--   <h2>Name:</h2> -->
+  <h2><%= @location.name %></h2>
 </p>
+
+
+<div>
+	Wind: <%= @surfaceWind %>   <br>
+	Atmo: <%= @surfaceAtmo %> <br>
+	Cond: <%= @surfaceCondition %>
+</div>
+
+<div id="charts">
+	<p>
+		<strong>Nearest Airport: </strong>
+		<%= @station %>
+		<p>
+			<%= @stationWind %>
+			<%= line_chart @windData.map { |label, value| 
+				{name: label, data: value}
+			} %>
+
+			<% @windData.map do |label, value|  %>
+				<%= label %> <%= line_chart value, label: label %>
+			<% end %>
+		</p>
+
+		<p>
+			<%= @stationWind %>
+			<%= line_chart @windData.map { |label, value| 
+				{name: label, data: value}
+			} %>
+
+			<% @windData.map do |label, value|  %>
+				<%= label %> <%= line_chart value, name: "name" %>
+			<% end %>
+		</p>
+	</p>
+	<p>
+		<%= line_chart @windData %>
+	</p>
+
+	<p>
+	<% forcastStart = (params[:forcastDate]? DateTime.parse(params[:forcastDate]) : DateTime.now)  %>
+	<strong>Voter's Prediction</strong>
+	<%= form_tag(location_path(@location), method: :get) do %>
+	<table>
+	  <tr><td>I would like the votes starting:</td><td><%= date_field_tag :forcastDate, params[:forcastDate], :value => forcastStart.strftime('%Y-%m-%d')  %></td></tr>
+	</table>
+	<%= submit_tag "Search" %>
+	<% end %>
+
+
+	<% data = Array.new %>
+	<% (0...10).each do |i| %>
+		<% data.push([i.to_s+" days from now", @location.getAPWn(forcastStart+i.days)]) %>
+	<% end %>
+
+	<%= line_chart data, label: "Flyability" %>
+	</p>
+
+</div> <!-- end charts -->
+
+<div> <!-- begin predictions list -->
+<% min = @location.predictions.order(:start).first %>
+<% max = @location.predictions.order(:start).last %>
+<% scaleFactor = 60.0/((max.start.month-min.start.month-1)*33.33+max.start.day+max.start.hour/24.0) %>
+<% @location.predictions.order(:start).each do |p| %>
+ <span style="
+	position: absolute; 
+	display:inline-block; 
+	left: <%= scaleFactor*((p.start.month-min.start.month-1)*30.333+p.start.day+p.start.hour/24.0) %>%;
+	" > 
+
+pnts: <%= @location.getScore(p.start).round(2) %> 
+cp: <%= @location.getCondProb(p.start).round(2) %> 
+cpn: <%= @location.getCondProbN(p.start).round(2) %> 
+cpn2: <%= @location.getCondProbN2(p.start).round(2) %> 
+apw: <%= @location.getAvgPredictingWeight(p.start).round(2) %> 
+apwn: <%= @location.getAPWn(p.start).round(2) %> 
+
+<%= link_to "#{p.start.hour}:00 to #{p.end.hour}:00 on #{p.start.month} / #{p.start.day} / #{p.start.year} (#{p.user.getWeight.round(2)})", prediction_path(p) %>
+
+</span>
+<br />
+<% end %>
+</div> <!-- end predictions list -->
+
+	<br>
+<br>
+<div><!-- timeline --><br>
+	<%= @predictionTimeline %><br><br>
+	<%= timeline @predictionTimeline, height: "600px" %>
+</div><!-- end timeline -->
+
 
 <%= link_to 'Edit', edit_location_path(@location) %> |
 <%= link_to 'Back', locations_path %>
+<p>
+<h4><%= link_to 'I would like to make a prediction', new_prediction_path(location: @location) %></h4>
+</p>

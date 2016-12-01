@@ -11,7 +11,64 @@ class LocationsController < ApplicationController
   # GET /locations/1
   # GET /locations/1.json
   def show
-  end
+    # forcastStart = DateTime.now.days_ago(120)
+    # forcastEnd = DateTime.now.days_ago(99)
+    
+    # #from start to end
+    # @forcast = Array.new(24, Prediction.new)
+
+    # hourStart = forcastStart
+    # hourEnd = hourStart + 2000.hours
+
+
+    # @hourPredictions = Prediction.all
+
+    Chartkick.options = {
+      library: {interpolateNulls:true}
+    }
+
+    @stationData = @location.getStationHash
+    @station = Location.getNearestStation(@location, @stationData)
+
+    @weatherJSON = @location.getWeatherHash
+    @stationWind = Location.getWeatherAtStation(@station, @weatherJSON)
+
+    @surfaceWind = Location.surfaceWeather(@location.lat, @location.lng)["channel"]["wind"]
+    @surfaceAtmo = Location.surfaceWeather(@location.lat, @location.lng)["channel"]["atmosphere"]
+    @surfaceCondition = Location.surfaceWeather(@location.lat, @location.lng)["channel"]["item"]["condition"]
+    
+    # @sufaceWind = Location.surfaceWeather(@location.lat, @location.lng)["channel"]["wind"]
+    # @sufaceAtmosphere = Location.surfaceWeather(@location.lat, @location.lng)["channel"]["atmosphere"]
+
+
+    # @stationLabel = {}
+    @stationBearing = {"0" => @surfaceWind["direction"]}
+    @stationSpeed = {"0" => @surfaceWind["speed"]}
+    @stationTemp = {"0" => @surfaceCondition["temp"]}
+    @stationWind.each do |altitude, data|
+      @stationBearing[altitude] = data["bearing"]
+      @stationSpeed[altitude] = data["speed"]
+      @stationTemp[altitude] = data["temp"]
+    end
+
+
+    @windData = {
+      "bearing" => @stationBearing, 
+      "speed" => @stationSpeed,
+      "temp" => @stationTemp
+    }
+
+
+    # @predictionTimeline = [
+    #   ["label", start, fin],["label", start, fin],["label", start, fin]
+    # ]
+     @predictionTimeline = []
+     @location.predictions.each do |p| 
+        @predictionTimeline.push([p.user.email.to_s, p.start.to_s, p.end.to_s])
+     end
+
+    # @stationJSON
+  end#show
 
   # GET /locations/new
   def new
