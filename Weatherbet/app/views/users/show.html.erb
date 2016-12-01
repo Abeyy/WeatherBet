@@ -1,47 +1,88 @@
-<h1><%= current_user.email %></h1>
 
-<br />
-<p>
-<h4>
-You have made <strong><%= @predictions.count %></strong> predictions, of which <strong><%= @usrStats.correct %></strong> where correct. </h4> This implies that the probability of your next prediction being correct is: <br />
-<p>
-<strong><%= @usrStats.mle.round(3) %></strong> using the mle method <br />
-<strong><%= @usrStats.jeffreys.round(3) %></strong> using the Jeffreys method <br />
-<strong><%= @usrStats.laplace.round(3) %></strong> using the LaPlace method <br />
-</p>
+<div class='backgroundJK'>
+<div class='row'>
+<div class='col-s-2 col-md-2 col-lg-2'>
+</div>
 
-</p>
+<div class='col-s-8 col-md-8 col-lg-8'>
+  <div class='panel panel-default marg-top'>
+      <h1 class='center'>Welcome, <%= current_user.email %></h1>
+  </div>
+</div>
+
+<div class='col-s-2 col-md-2 col-lg-2'>
+</div>
+</div>
+
+<div class='row'>
+<div class='col-s-4 col-md-4 col-lg-4'>
+  <div class='panel panel-default'>
+    <div class='center'>
+    <h1> Prediction Accuracy </h1>
+    </div>
+    <p>You have made <strong><%= @predictions.count %></strong> predictions, of which <strong><%= @usrStats.correct %></strong> where correct. </p> 
+
+    <p>This implies that the probability of your next prediction being correct is: <br />
+
+    <p><strong><%= @usrStats.mle.round(3) %></strong> using the mle method <br />
+        <strong><%= @usrStats.jeffreys.round(3) %></strong> using the Jeffreys method <br />
+        <strong><%= @usrStats.laplace.round(3) %></strong> using the LaPlace method <br />
+    </p>
+  </div>
+</div> 
 
 
-<h2>my predictions</h2>
+<div class='col-s-4 col-md-4 col-lg-4'>
+  <div class='panel panel-default'>
+    <div class='center'>
+    <h1> My Predictions </h1>
+    </div>
+        <% if current_user.predictions.any?%>
+      <p>
+      <ul>
+          <% current_user.predictions.each do |prediction| %>
+      <li>
+        <%= prediction.location.name %> 
+        <%= prediction.start %> 
+        <%= prediction.end %> 
+        <% if prediction.isTrue %>
+      <ul>
+        <li><%= prediction.confirmingReport.location.name %>
+        <%= prediction.confirmingReport.start %>
+        <%= prediction.confirmingReport.end %>
+        <%= (prediction.confirmingReport.user).email %></li>
+      </ul>
+        
+    <% end %>
+     </li>
+     <% end %>
+     <% else %>
+        <p class='center'> You have not made any predictions yet. </p>
+        <% end %> 
+    </ul>
+    </p>
+    
+  </div>
+</div> 
 
-<p>
-<ul>
-<% current_user.predictions.each do |prediction| %>
-  <li>
-  	<%= prediction.location.name %> 
-  	<%= prediction.start %> 
-  	<%= prediction.end %> 
-  	<% if prediction.isTrue %>
-  		√<ul>
-  			<li><%= prediction.confirmingReport.location.name %>
-  			<%= prediction.confirmingReport.start %>
-  			<%= prediction.confirmingReport.end %>
-  			<%= (prediction.confirmingReport.user).email %></li>
-  		</ul>
-  	<% end %>
-  </li>
+<div class='col-s-4 col-md-4 col-lg-4'>
+  <div class='panel panel-default'>
+  <h1 class='center'> My Reports </h1>
+   <ul>
+   <% current_user.reports.each do |report| %>
+   <li><%= report.location.name %> <%= report.start %> <%= report.end %></li>
+  <% end %>
+  </ul>
+    
+  </div>
+</div> 
+</div>
+<% if @usrStats.total > 100 %>
+<h1> HOLY </h1>
+<% elsif @usrStats.total  == 1 %>
+<h1> Not bad.. 1 </h1>
+<% else %>
+<h1> ELSE? <%= @usrStats.total %> </h1>
 <% end %>
-</ul>
-</p>
-
-<p>
-<h2>my reports</h2>
-<ul>
-<% current_user.reports.each do |report| %>
-  <li><%= report.location.name %> <%= report.start %> <%= report.end %></li>
-<% end %>
-</ul>
-</p>
-
-
+<h1>hi <% @predictions %></h1>
+</div>

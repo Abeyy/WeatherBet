@@ -11,6 +11,7 @@ class PredictionsController < ApplicationController
   # GET /predictions/1
   # GET /predictions/1.json
   def show
+  
   end
 
   # GET /predictions/new
@@ -21,6 +22,7 @@ class PredictionsController < ApplicationController
   # GET /predictions/1/edit
   def edit
   end
+
 
   # POST /predictions
   # POST /predictions.json
