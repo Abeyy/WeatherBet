@@ -83,6 +83,11 @@ class Location < ApplicationRecord
 		return weather["winds"][ station["code"] ]
 	end
 
+	def self.surfaceWeather(lat, lng) 
+		query = "select * from weather.forecast where woeid in (SELECT woeid FROM geo.places WHERE text='(#{lat},#{lng})')"
+		return HTTParty.get('https://query.yahooapis.com/v1/public/yql?', query: {q: query}).parsed_response["query"]["results"]
+	end
+
 	def self.getCoords(place)
 		return (HTTParty.get('https://maps.googleapis.com/maps/api/geocode/json?', query: {address: place}).parsed_response.first[1].first)["geometry"]["location"]
 	end

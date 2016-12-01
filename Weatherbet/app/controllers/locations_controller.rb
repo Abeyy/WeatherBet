@@ -22,16 +22,29 @@ class LocationsController < ApplicationController
 
 
     # @hourPredictions = Prediction.all
+
+    Chartkick.options = {
+      library: {interpolateNulls:true}
+    }
+
     @stationData = @location.getStationHash
     @station = Location.getNearestStation(@location, @stationData)
 
     @weatherJSON = @location.getWeatherHash
     @stationWind = Location.getWeatherAtStation(@station, @weatherJSON)
 
+    @surfaceWind = Location.surfaceWeather(@location.lat, @location.lng)["channel"]["wind"]
+    @surfaceAtmo = Location.surfaceWeather(@location.lat, @location.lng)["channel"]["atmosphere"]
+    @surfaceCondition = Location.surfaceWeather(@location.lat, @location.lng)["channel"]["item"]["condition"]
+    
+    # @sufaceWind = Location.surfaceWeather(@location.lat, @location.lng)["channel"]["wind"]
+    # @sufaceAtmosphere = Location.surfaceWeather(@location.lat, @location.lng)["channel"]["atmosphere"]
+
+
     # @stationLabel = {}
-    @stationBearing = {}
-    @stationSpeed = {}
-    @stationTemp = {}
+    @stationBearing = {"0" => @surfaceWind["direction"]}
+    @stationSpeed = {"0" => @surfaceWind["speed"]}
+    @stationTemp = {"0" => @surfaceCondition["temp"]}
     @stationWind.each do |altitude, data|
       @stationBearing[altitude] = data["bearing"]
       @stationSpeed[altitude] = data["speed"]
