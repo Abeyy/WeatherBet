@@ -1,10 +1,32 @@
 Weatherbet
 
-
 wbet.us
 
+Requirements:
+- Ruby version 2.3
+- Rails version 5.0.0.1
 
-Git Strategy:
+How to run locally:                       
+
+1) Enter the ```Weatherbet``` directory and, in a terminal, type 
+```
+bundle install
+```
+
+2) Next, enter 
+``` 
+bin/rails server 
+```
+
+3) Finally, open up a web browser and got to ``` http://localhost:3000 ``` to see the site       
+
+3a) While it might not be necessary, you may need to migrate the database. If so, simply ``` cd ``` the ``` Weatherbet ``` directory and, in a terminal, type
+```
+bin/rails db:migrate RAILS_ENV=development
+```
+
+
+Git Strategy (for contributors):
 
 	Branching:
 		Create a new branch for each feature from a story on PivitolTracker
