@@ -6,8 +6,11 @@ Requirements:
 - Ruby version 2.3
 - Rails version 5.0.0.1
 
-How to run locally:                       
+To Do:
+1) Migrate DB to PostgreSQL from SQLite
+2) Host site (AWS, Digital Ocean, or Heroku)
 
+How to run locally:                       
 1) Enter the ```Weatherbet``` directory and, in a terminal, type 
 ```
 bundle install
