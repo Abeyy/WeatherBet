@@ -2,28 +2,34 @@
 
 wbet.us
 
-Requirements:
+### Requirements:
 - Ruby version 2.3
 - Rails version 5.0.0.1
 
 To Do:
-1) Migrate DB to PostgreSQL from SQLite
-2) Host site (AWS, Digital Ocean, or Heroku)
+- Migrate DB to PostgreSQL from SQLite
+- Host site (AWS, Digital Ocean, or Heroku)
+- Use vagrant to set up dev env and keep envs consistent with prod
+- Set up CD/CI
+- Remove C++ component(?)
+	- Could deploy with heroku if removed
 
-How to run locally:                       
-1) Enter the ```Weatherbet``` directory and, in a terminal, type 
-```
-bundle install
-```
+### How to set up development environment: 
+1. Enter the ```WeatherBet``` directory and, in a terminal, type 
+```$ bundle install --path vendor/bundle```          
 
-2) Next, enter 
+- You might need to install sqlite on your machine
+
+```apt-get install libsqlite3-dev``` or ```brew install sqlite``` (if on mac)
+
+2. Next, enter to run the server locally 
 ``` 
-bin/rails server 
+$ bin/rails server 
 ```
 
-3) Finally, open up a web browser and got to ``` http://localhost:3000 ``` to see the site       
+3. Finally, open up a web browser and got to ```http://localhost:3000``` to see the site 
 
-3a) While it might not be necessary, you may need to migrate the database. If so, simply ``` cd ``` the ``` Weatherbet ``` directory and, in a terminal, type
+	- While it might not be necessary, you may need to migrate the database. If so, simply ```cd``` the ```Weatherbet``` directory and, in a terminal, type
 ```
 bin/rails db:migrate RAILS_ENV=development
 ```
@@ -75,9 +81,3 @@ Git Strategy (for contributors):
 					After 60 person who innitiated PR should @everyone in Slack
 			v.
 				Once approval is recieved via Slack, click "Merge Pull Request" and delete branch if prudent. (don't forget to delete locally)
-
-
-
-
-
-			
